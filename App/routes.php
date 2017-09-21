@@ -38,8 +38,21 @@ $app -> post('/user/update', 'App\Controllers\UserController:UserUpdate');
  */
 
 $app -> get('/role/index','App\Controllers\RoleController:RoleIndex');
-$app -> get('/role/user/list','App\Controllers\RoleController:RoleList');
+$app -> get('/role/user/userList','App\Controllers\RoleController:RoleUserList');
 $app -> get('/role/user/info','App\Controllers\RoleController:UserInfo');
+$app -> get('/role/list','App\Controllers\RoleController:RoleList');
+$app -> get('/role/info','App\Controllers\RoleController:RoleInfo');
+$app -> get('/role/select','App\Controllers\RoleController:RoleSelect');
+$app -> get('/role/fullInfo','App\Controllers\RoleController:RoleFullInfo');
+$app -> get('/role/usertorole','App\Controllers\RoleController:RoleSelectUserToRole');
+$app -> get('/role/usertorole/search','App\Controllers\RoleController:RoleSelectRoleOfUser');
+
+$app -> post('/role/add','App\Controllers\RoleController:RoleAdd');
+$app -> post('/role/delete','App\Controllers\RoleController:RoleDelete');
+$app -> post('/role/update','App\Controllers\RoleController:RoleUpdate');
+$app -> post('/role/usertorole/delete','App\Controllers\RoleController:RoleRoleOfUserDelete');
+$app -> post('/role/usertorole/add','App\Controllers\RoleController:RoleRoleOfUserAdd');
+
 
 $app->group('',function(){
 //	$this -> post('/user/add', 'App\Controllers\UserController:UserAdd');
@@ -50,9 +63,9 @@ $app->group('',function(){
 //	$this -> get('/user/item', 'App\Controllers\UserController:UserItem');
 //	$this -> get('/user/list', 'App\Controllers\UserController:UserList');
 	
-	$this -> post('/role/add', 'App\Controllers\RoleController:RoleAdd');
-	$this -> post('/role/delete', 'App\Controllers\RoleController:RoleDelete');
-	$this -> post('/role/update', 'App\Controllers\RoleController:RoleUpdate');
+	// $this -> post('/role/add', 'App\Controllers\RoleController:RoleAdd');
+	// $this -> post('/role/delete', 'App\Controllers\RoleController:RoleDelete');
+	// $this -> post('/role/update', 'App\Controllers\RoleController:RoleUpdate');
 //	$this -> get('/role/list', 'App\Controllers\RoleController:RoleList');
 })-> add(new App\Middlewares\RoleMiddleware($container)) -> add(new App\Middlewares\AuthMiddleware($container));
 ?>

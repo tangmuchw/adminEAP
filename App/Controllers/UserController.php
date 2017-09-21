@@ -24,7 +24,7 @@ class 	UserController extends BaseController
 	}
 	public function UserItem(Request $request,Response $response,$args)
 	{
-		include APP_PATH.'/Views/item.html';
+		include APP_PATH.'/Views/user/item.html';
 
 	}
 	
@@ -55,7 +55,8 @@ class 	UserController extends BaseController
 		include APP_PATH . '/Views/User/Login.html';
 	}
 	
-	public function UserInfo(Request $request,Response $response, $args) {
+	public function UserInfo(Request $request,Response $response, $args) 
+	{
 		
 		$user = new UserModel();
 		$result = $user->getUserFullInfo();
@@ -118,25 +119,27 @@ class 	UserController extends BaseController
 	}
 	
 	public function UserSelect(Request $request,Response $response, $args) {
-		$start = $_GET["start"];
-		//表可以在当前绘图中显示的记录数。
-		$length = $_GET["length"];
-		$draw = $_GET["draw"];
 		
 		$searchValue = $request -> getParam('searchValue');
 		$user = new UserModel();
 		$result = $user -> selectUser($searchValue);
-		var_dump($result);
-		var_dump($start);
-		var_dump($length);
-		var_dump($draw);
+//		var_dump($result);
+//		var_dump($start);
+//		var_dump($length);
+//		var_dump($draw);
+//		var_dump($result);
+//		var_dump(count($result));
 		$newarr = new stdClass();
-		$newarr->draw = $draw;
-		$newarr->page = (int)(count($result)/$length);
+		$newarr->page = (int)(count($result)/10)<10?1:(int)(count($result)/$length);
 		$newarr->recordsTotal =count($result);
-		$newarr->recordsFiltered = 5;
+		$newarr->recordsFiltered = count($result);
 		$newarr->data = array();
-		$newarr->data[0] = $result;
+		$h=0;
+		for($i = 0; $i<count($result);$i++,$h++)
+		{
+			$newarr->data[$h] = $result[$i];
+		}
+//		var_dump($newarr);
 
 		return $response->withJson($newarr);
 	}

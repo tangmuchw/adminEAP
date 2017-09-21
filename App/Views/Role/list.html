@@ -83,19 +83,6 @@
 				float: left;
 			}
 			
-			#update .modal-body {
-				/*position: relative;*/
-				/*height: 250px;*/
-			}
-			
-			#update .update-state {
-				/*width: 250px;
-				position: absolute;
-				top: 200px;
-				left: 50%;*/
-				/*margin-left: -125px;*/
-			}
-			
 			.modal .input-group {
 				margin-bottom: 20px;
 			}
@@ -118,6 +105,39 @@
 			
 			.addRedColor {
 				color: red;
+			}
+			
+			.left20 {
+				overflow: hidden;
+			}
+			
+			.floatright {
+				float: right;
+			}
+			
+			.selected {
+				background-color: lightseagreen!important;
+			}
+			
+			.clicked {
+				background-color: lightsalmon!important;
+			}
+			
+			#usertorole-delete {
+				margin-left: 10px;
+			}
+			
+			.roleTable {
+				overflow: hidden;
+			}
+			
+			#usertoroe-updateTips ul {
+				width: 300px;
+				margin: 0 auto;
+			}
+			
+			#usertoroe-updateTips li {
+				float: none;
 			}
 		</style>
 	</head>
@@ -443,7 +463,7 @@
 							</a>
 							<ul class="treeview-menu">
 								<li>
-									<a href="/role/user/list" id="userinfo"><i class="fa fa-circle-o"></i>用户信息管理</a>
+									<a href="/role/user/userList" id="userinfo"><i class="fa fa-circle-o"></i>用户信息管理</a>
 								</li>
 							</ul>
 						</li>
@@ -457,7 +477,7 @@
 							</a>
 							<ul class="treeview-menu">
 								<li>
-									<a href="pages/layout/top-nav.html"><i class="fa fa-circle-o"></i>角色信息管理</a>
+									<a href="/role/list"><i class="fa fa-circle-o"></i>角色信息管理</a>
 								</li>
 								<li>
 									<a href="pages/layout/boxed.html"><i class="fa fa-circle-o"></i>角色授权管理</a>
@@ -510,51 +530,73 @@
 				<!-- Content Header (Page header) -->
 				<section class="content-header">
 					<h1>
-       					 用户管理
+       					 角色管理
        		 	 		<small>控制中心</small>
       				</h1>
 					<ol class="breadcrumb">
 						<li>
 							<a href="/role/index"><i class="fa fa-dashboard"></i> 首页</a>
 						</li>
-						<li class="active">用户管理</li>
+						<li class="active">角色管理</li>
 					</ol>
 				</section>
 				<!-- Main content -->
-				<section class="content">
+				<section class="content roleTable">
 					<!-- Small boxes (Stat box) -->
-					<div class="row">
-						<div class="col-xs-12">
+					<div class="col">
+						<div class="col-xs-6">
 							<!-- /.box -->
 
 							<div class="box">
 								<!-- .box-header -->
 								<div class="box-header">
-									<h3 class="box-title">用户信息</h3>
+									<div class="row">
+										<div class="col-sm-12">
+
+										</div>
+
+									</div>
+
 								</div>
 								<!-- /.box-header -->
 								<div class="box-body">
-									<!-- <div id="example1_filter" class="dataTables_filter">
-									
-										<button type="button" class="btn btn-primary">查询</button>
-										<button type="button" class="btn btn-primary">重置</button>
-										<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addinfo">新增</button>
-										<button type="button" class="btn btn-primary"  data-toggle="modal" data-target="#update">编辑</button>
-										<button type="button" class="btn btn-primary"  data-toggle="modal" data-target="#deleteTips">删除</button>
-									
-								</div> -->
-									<table id="example1" class="table table-bordered table-hover" width="100%">
+
+									<table id="roleInfo" class="table table-bordered table-hover" width="100%">
 										<thead>
 											<tr>
-												<th>序号</th>
-												<th>姓名</th>
-												<th>邮箱</th>
-												<th>电话</th>
-												<th>性别</th>
-												<th>年龄</th>
-												<th>状态</th>
-												<th>地址</th>
-												<!--<th>操作</th>-->
+												<th>编号</th>
+												<th>名称</th>
+											</tr>
+										</thead>
+										<tbody>
+
+										</tbody>
+									</table>
+								</div>
+								<!-- /.box-body -->
+							</div>
+							<!-- /.box -->
+						</div>
+
+					</div>
+					<!-- /.row -->
+					<div class="col">
+						<div class="col-xs-6">
+							<!-- /.box -->
+
+							<div class="box">
+								<!-- .box-header -->
+								<div class="box-header">
+									<h3 class="box-title" id="role-title">用户的角色信息</h3>
+								</div>
+								<!-- /.box-header -->
+								<div class="box-body">
+
+									<table id="usertorole" class="table table-bordered table-hover" width="100%">
+										<thead>
+											<tr>
+												<th>编号</th>
+												<th>名称</th>
 											</tr>
 										</thead>
 										<tbody>
@@ -570,7 +612,6 @@
 					</div>
 					<!-- /.row -->
 				</section>
-				<!-- /.content -->
 			</div>
 			<!-- /.content-wrapper -->
 			<footer class="main-footer">
@@ -788,17 +829,14 @@
 					<div class="modal-body">
 						<div class="input-group form-group has-feedback">
 							<span class="input-group-addon"><i class="fa fa-user"></i></span>
-							<input type="text" class="form-control" placeholder="姓名" id="addNewUserName" name="addNewUserName" />
+							<input type="text" class="form-control" placeholder="角色名" id="addNewRoleName" name="addNewRoleName" />
 						</div>
 						<div class="input-group form-group has-feedback">
 							<span class="input-group-addon"><i class="fa fa-lock"></i></span>
 
-							<input type="text" class="form-control" placeholder="密码" id="addNewPassword" name="addNewPassword" />
+							<input type="text" class="form-control" placeholder="编号" id="addNewID" name="addNewID" />
 						</div>
-						<div class="input-group form-group has-feedback">
-							<span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-							<input type="text" class="form-control" placeholder="邮箱" id="addNewEmail" name="addNewEmail" />
-						</div>
+
 						<div class="callout callout-info modalTips">
 							<h4>Tip!</h4>
 							<p id="addTips-error">
@@ -809,7 +847,7 @@
 
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default close2" data-dismiss="modal">取消</button>
-						<button type="button" class="btn btn-primary">提交</button>
+						<button type="button" class="btn btn-primary" id="addinfo-sure">提交</button>
 					</div>
 				</div>
 			</div>
@@ -828,49 +866,17 @@
 							<ul>
 								<li>
 									<div class="input-group form-group has-feedback">
-										<span class="input-group-addon"><i class="fa fa-user"></i></span>
-										<input type="text" class="form-control" placeholder="姓名" id="update-username" name="update-username" disabled="disabled" />
-									</div>
-								</li>
-								<li>
-									<div class="input-group form-group has-feedback">
 										<span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-										<input type="text" class="form-control" placeholder="邮箱" id="update-email" name="update-email" disabled="disabled" />
+										<input type="text" class="form-control" placeholder="编号" id="update-roleID" name="update-roleID" disabled="disabled" />
 									</div>
 								</li>
 								<li>
 									<div class="input-group form-group has-feedback">
-										<span class="input-group-addon"><i class="fa fa-euro"></i></span>
-										<input type="text" class="form-control" placeholder="电话" id="update-phone" name="update-phone" disabled="disabled" />
+										<span class="input-group-addon"><i class="fa fa-user"></i></span>
+										<input type="text" class="form-control" placeholder="角色名" id="update-rolename" name="update-rolename" />
 									</div>
 								</li>
-								<li>
-									<div class="input-group form-group has-feedback">
-										<span class="input-group-addon"><i class="fa fa-bookmark"></i></span>
-										<input type="text" class="form-control" placeholder="性别" id="update-sex" name="update-sex" disabled="disabled" />
-									</div>
-								</li>
-								<li>
-									<div class="input-group form-group has-feedback">
-										<span class="input-group-addon"><i class="fa  fa-heart"></i></span>
-										<input type="text" class="form-control" placeholder="年龄" id="update-age" name="update-age" disabled="disabled" />
-									</div>
-								</li>
-								<li>
-									<div class="input-group form-group has-feedback">
-										<span class="input-group-addon"><i class="fa fa-home"></i></span>
-										<input type="text" class="form-control" placeholder="地址" id="update-address" name="update-address" disabled="disabled" />
-									</div>
-								</li>
-								<li>
-									<div class="input-group form-group has-feedback update-state" >
-										<span class="input-group-addon"><i class="fa  fa-shekel "></i></span>
-										<select name="" class="form-control" id="update-state">
-											<option value="无效">无效</option>
-											<option value="有效" selected="selected">有效</option>
-										</select>
-									</div>
-								</li>
+
 							</ul>
 
 						</div>
@@ -900,6 +906,12 @@
 					</div>
 					<div class="modal-body">
 						<p id="delete-error">是否要删除该行数据?</p>
+						<div class="callout callout-info modalTips">
+							<h4>Tip!</h4>
+							<p id="deleteTips-error">
+
+							</p>
+						</div>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default close2" data-dismiss="modal">取消</button>
@@ -909,7 +921,83 @@
 			</div>
 		</div>
 		<!--/#deleteTips-->
+		<!--/#usertoroe-updateTips-->
+		<div id="usertoroe-updateTips" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title">修改信息:</h4>
+					</div>
+					<div class="modal-body">
+						<div class="usertorole-update-info">
+							<ul>
+								<li>
+									<div class="input-group form-group has-feedback">
+										<span class="input-group-addon"><i class="fa fa-euro"></i></span>
+										<input type="text" class="form-control" placeholder="编号" id="usertoroe-update-roleID" name="usertoroe-update-roleID" disabled="disabled" />
+									</div>
+								</li>
+								<li>
+									<div class="input-group form-group has-feedback">
+										<span class="input-group-addon"><i class="fa fa-user"></i></span>
+										<input type="text" class="form-control" placeholder="用户名" id="usertoroe-update-username" name="usertoroe-update-username" disabled="disabled" />
+									</div>
+								</li>
+								<li>
+									<div class="input-group form-group has-feedback" id="rolename-select">
+										<span class="input-group-addon"><i class="fa fa-shekel "></i></span>
+										<!--	<select name="">
+											<option value=""></option>
+										</select>-->
+										<!--<input type="text" class="form-control" placeholder="角色名" id="usertoroe-update-rolename" name="usertoroe-update-rolename" />-->
+									</div>
+								</li>
 
+							</ul>
+
+						</div>
+
+						<div class="callout callout-info modalTips">
+							<h4>Tip!</h4>
+							<p id="usertorole-updateTips-error">
+
+							</p>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default close2" data-dismiss="modal">取消</button>
+						<button type="button" class="btn btn-primary" id="usertorole-update-sure">提交</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--/#usertoroe-updateTips-->
+		<!--#usertorole-deleteTips-->
+		<div id="usertorole-deleteTips" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+			<div class="modal-dialog modal-sm" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close close2" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title">确认提示:</h4>
+					</div>
+					<div class="modal-body">
+						<p id="usertorole-delete-error">是否要删除该行数据?</p>
+						<div class="callout callout-info modalTips">
+							<h4>Tip!</h4>
+							<p id="usertorole-deleteTips-error">
+
+							</p>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default close2" data-dismiss="modal">取消</button>
+						<button type="button" class="btn btn-primary" id="usertorole-delete-sure">确定</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--/#usertorole-deleteTips-->
 		<!-- jQuery 3 -->
 		<script src="/static/bower_components/jquery/dist/jquery.min.js"></script>
 		<!-- jQuery UI 1.11.4 -->
@@ -935,101 +1023,92 @@
 		<script src="/static/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 		<script src="/static/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 		<!--<script type="text/javascript" src="/static/plugins/mock/mock.js"></script>-->
+		<!--userAction-->
+		<script type="text/javascript" src="/static/js/userAction.js"></script>
+
+			
+		<!-- 角色显示 -->
 		<script type="text/javascript">
 			$(document).ready(function() {
 
 				//				初始化datatables
-				var table = initTable('/role/user/info');
-
-				function initTable(webUrl) {
-					var table = $('#example1').DataTable({
-						// "data":ret.data,
-						//						"processing": true,
-						"serverSide": true,
-						"scrollX": true,
-						"autoWidth": true,
-						"ajax": webUrl,
-						"ordering": false,
-						"searching": false,
-						"columns": [{
-								"data": "ID"
-							},
-							{
-								"data": "UserName"
-							},
-							{
-								"data": "Email"
-							},
-							{
-								"data": "Phone"
-							},
-							{
-								"data": "Sex"
-							},
-							{
-								"data": "Age"
-							},
-							{
-								"data": "State"
-							},
-							{
-								"data": "Address"
+				var searchParams = {};
+				var tableRoleInfo = $('#roleInfo').DataTable({
+					//						"processing": true,
+					"serverSide": true,
+					"scrollX": true,
+					"autoWidth": true,
+					"bLengthChange": false,
+					"ajax": {
+						"url": '/role/info',
+						"type": "get",
+						"data": function(d) {
+							if(searchParams) {
+								$.extend(d, searchParams); //给d扩展参数
 							}
-							/*,{
-								"data": 'btn'
-							}*/
-						],
-						"language": {
-							"sProcessing": "处理中...",
-							"lengthMenu": "每页 _MENU_ 条记录",
-							"zeroRecords": "没有找到记录",
-							"info": "第 _PAGE_ 页 ( 总共 _PAGES_ 页 )",
-							"infoEmpty": "无记录",
-							"infoFiltered": "(从 _MAX_ 条记录过滤)",
-							"sUrl": "",
-							"sEmptyTable": "表中数据为空",
-							"sLoadingRecords": "载入中...",
-							"sInfoThousands": ",",
-							"search": "按姓名搜索:",
-							"oPaginate": {
-								"sFirst": "首页",
-								"sPrevious": "上页",
-								"sNext": "下页",
-								"sLast": "末页"
-							},
-							"oAria": {
-								"sSortAscending": ": 以升序排列此列",
-								"sSortDescending": ": 以降序排列此列"
-							}
-
 						}
-					});
-					return table;
-				}
+					},
+					"ordering": false,
+					"searching": false,
+					//						"fnServerData": retrieveData,//分页回调函数
+					"columns": [{
+							"data": "ID"
+						},
+						{
+							"data": "RoleName"
+						}
+					],
+					"language": {
+						"sProcessing": "处理中...",
+						"lengthMenu": "每页 _MENU_ 条记录",
+						"zeroRecords": "没有找到记录",
+						"info": "第 _PAGE_ 页 ( 总共 _PAGES_ 页 )",
+						"infoEmpty": "无记录",
+						"infoFiltered": "(从 _MAX_ 条记录过滤)",
+						"sUrl": "",
+						"sEmptyTable": "表中数据为空",
+						"sLoadingRecords": "载入中...",
+						"sInfoThousands": ",",
+						"search": "按姓名搜索:",
+						"oPaginate": {
+							"sFirst": "首页",
+							"sPrevious": "上页",
+							"sNext": "下页",
+							"sLast": "末页"
+						},
+						"oAria": {
+							"sSortAscending": ": 以升序排列此列",
+							"sSortDescending": ": 以降序排列此列"
+						}
+
+					}
+				});
+				//					return table;
+				//				}
 
 				//添加按钮
-				var btns = $("<input type='text' class='form-control' placeholder='按姓名搜索...' id='search-value'><div class='btn-group'><button type='button' class='btn btn-default' style='margin-left:5px' id='selectUser-btn'>查询</button><button type='button' class='btn btn-default'>重置</button></div><div class='btn-group'><button type='button' class='btn btn-default' data-toggle='modal' data-target='#addinfo' style='margin-left:5px'>新增</button><button type='button' class='btn btn-default'  data-toggle='modal' data-target='#update'>编辑</button><button type='button' class='btn btn-default' data-toggle='modal'  data-target='#delete'>删除</button></div>");
+				var btns = $("<div class='floatright'><input type='text' class='form-control' placeholder='请输入名称...' id='search-value'><div class='btn-group'><button type='button' class='btn btn-default' style='margin-left:5px' id='selectUser-btn'>查询</button><button type='button' class='btn btn-default' id='reset-datatable'>重置</button></div><div class='btn-group'><button type='button' class='btn btn-default' data-toggle='modal' data-target='#addinfo' style='margin-left:5px'>新增</button><button type='button' class='btn btn-default'  data-toggle='modal' data-target='#update' id='role-update'>编辑</button><button type='button' class='btn btn-default' data-toggle='modal'  data-target='#delete' id='role-delete'>删除</button></div></div>");
 
-				var a = $("#example1_wrapper .row").first().find(".col-sm-6").last();
+				var a = $(" #roleInfo_wrapper .row").first().find(".col-sm-6").last();
+				a.removeClass("col-sm-6");
+				a.addClass("col-sm-12 left20");
 				a.append(btns);
 
-				//				新增用户信息
+				//				新增角色信息
 
 				$(".close2").click(function() {
 					$(".modalTips").css("display", "none");
 
 				});
-				$("#addinfo-btn").click(function() {
-					var newUsername = $("#addNewUserName").val();
-					var newPwd = $("#addNewPassword").val();
-					var newEmail = $("#addNewEmail").val();
+				$("#addinfo-sure").click(function() {
+					var newRoleName = $("#addNewRoleName").val();
+					var newID = $("#addNewID").val();
 					$.ajax({
 						type: "post",
-						url: "/user/add",
+						url: "/role/add",
 						data: {
-							"newUserName": newUsername,
-							"newPwd": newPwd,
-							"newEmail": newEmail
+							"newRoleName": newRoleName,
+							"newID": newID
 						},
 						success: function(data) {
 							if(data.code == 0) {
@@ -1039,57 +1118,35 @@
 							} else {
 								$(".modalTips").css("display", "block");
 								$("#addTips-error").html(data.msg);
-							}
-							//							console.log("添加成功");
-						},
-						error: function(er) {
-							$(".modalTips").css("display", "block");
-							$("#addTips-error").html('服务器错误');
-						}
+								tableRoleInfo.ajax.url('/role/info').load();
 
+							}
+						}
 					});
 				});
 
-				//				删除用户
+				//				删除角色前的选中判断
 				var isSelect = false;
-				if(!isSelect) {
-					$("#delete-error").html('请选择一行数据');
-					$("#delete-sure").attr('disabled', 'disabled');
-					//					设置update
-					$(".update-info").css("display", "none");
-					$("#update-sure").attr('disabled', 'disabled');
-					$("#update .modalTips").css("display", "block");
-					$("#updateTips-error").html('请选择一行数据');
 
-				} else {
-					$("#delete-error").html('是否要删除该行数据');
-					$(".update-info").css("display", "block");
-					$("#update .modalTips").css("display", "none");
-
-				}
-
-				var deleteUserEmail; //得到要被删除的邮箱
+				var deleteRoleID; //得到要被删除的角色id
 				$("#delete-sure").click(function() {
-					//					console.log(deleteUserEmail);
-
 					$.ajax({
 						type: "post",
-						url: "/user/delete",
+						url: "/role/delete",
 						data: {
 
-							"email": deleteUserEmail
+							"roleID": deleteRoleID
 						},
 						success: function(data) {
 							if(data.code == 0) {
 								$(".modalTips").css("display", "block");
 								$("#deleteTips-error").html(data.msg);
-								setTimeout(function() {
-									location.reload();
-								}, 1000)
 
 							} else {
 								$(".modalTips").css("display", "block");
 								$("#deleteTips-error").html(data.msg);
+								tableRoleInfo.ajax.url('/role/info').load();
+
 							}
 							//							console.log("添加成功");
 						},
@@ -1101,42 +1158,39 @@
 					});
 				});
 
-				//查询用户
+				//查询角色
 				$("#selectUser-btn").on('click', function() {
 					//					console.log(1);
 					var searchValue = $("#search-value").val();
-
+					searchParams.searchValue = searchValue;
+					tableRoleInfo.ajax.url('/role/select').load();
+					tableUsertoRole.ajax.url('/role/usertorole').load();
+					isClick = false;
 				});
 
 				//编辑用户
 
-				var userInfoJson;
+				var roleInfoJson;
 
 				function updateUser() {
-					$("#update-username").val(userInfoJson.UserName);
-					$("#update-email").val(userInfoJson.Email);
-					$("#update-phone").val(userInfoJson.Phone);
-					$("#update-sex").val(userInfoJson.Sex);
-					$("#update-age").val(userInfoJson.Age);
-					$("#update-address").val(userInfoJson.Address);
-					var email = userInfoJson.Email;
+					$("#update-rolename").val(roleInfoJson.RoleName);
+					$("#update-roleID").val(roleInfoJson.ID);
 					//					console.log(state);
 					$("#update-sure").click(function() {
-						var state = $("#update-state").val();
+						var rolename = $("#update-rolename").val();
+						var roleID = $("#update-roleID").val();
 						$.ajax({
 							type: "post",
-							url: "/user/update",
+							url: "/role/update",
 							data: {
-								email: email,
-								state: state
+								rolename: rolename,
+								roleID: roleID
 							},
 							success: function(data) {
 								if(data.code == 1) {
 									$(".modalTips").css("display", "block");
 									$("#updateTips-error").html(data.msg);
-									setTimeout(function() {
-										location.reload();
-									}, 1000)
+									tableRoleInfo.ajax.url('/role/info').load();
 
 								} else {
 									$(".modalTips").css("display", "block");
@@ -1150,78 +1204,313 @@
 
 				}
 
+				//				重置按钮
+				$("#reset-datatable").click(function() {
+					tableRoleInfo.ajax.url('/role/info').load();
+				})
+
 				//				表格的行点击事件
-				$('#example1 tbody').on('click', 'tr', function(event) {
+				var rolename;
+				$('#roleInfo tbody').on('click', 'tr', function(event) {
 					if($(this).hasClass('selected')) {
 						$(this).removeClass('selected');
 						isSelect = false;
 					} else {
-						table.$('tr.selected').removeClass('selected');
+						tableRoleInfo.$('tr.selected').removeClass('selected');
 						$(this).addClass('selected');
 						isSelect = true;
 
 					}
 					//					console.log(isSelect);
 					//					console.log(table.row(this).data().ID);
-					var username = table.row(this).data().UserName;
-					deleteUserEmail = table.row(this).data().Email;
-					userInfoJson = table.row(this).data();
-					//					console.log(username);
-					//					dataJson =  JSON.parse(table.row(this).data());
-					//					console.log(dataJson);
-					console.log(userInfoJson);
+					rolename = tableRoleInfo.row(this).data().RoleName;
+					deleteRoleID = tableRoleInfo.row(this).data().ID;
+					roleInfoJson = tableRoleInfo.row(this).data();
+					leftSelectTips(isSelect);
+					updateUser();
+					searchParams.roleID = roleInfoJson.ID;
+					tableUsertoRole.ajax.url('/role/usertorole').load();
+					$("#role-title").html(rolename);
+
+				});
+				//				console.log(roleInfoJson);
+				leftSelectTips(isSelect);
+
+				function leftSelectTips(data) {
 					//判断是否被选中
 					if(!isSelect) {
-						$("#delete-error").html('请选择一行数据!');
+						$("#delete-error").html('请选择左侧的一行数据进行删除!');
 						$("#delete-sure").attr('disabled', 'disabled');
+
 						//					设置update
 						$(".update-info").css("display", "none");
 						$("#update-sure").attr('disabled', 'disabled');
-
 						$("#update .modalTips").css("display", "block");
-						$("#updateTips-error").html('请选择一行数据');
+						$("#updateTips-error").html('请选择左侧一行数据进行编辑');
+						$("#role-title").html('用户的角色信息');
+						searchParams.roleID = '';
 					} else {
 
-						$("#delete-error").html("是否要删除(姓名为：" + username + ")该行数据!");
+						$("#delete-error").html("是否要删除(角色为：" + rolename + ")该行数据!");
 						$("#delete-sure").removeAttr('disabled');
+
 						$("#update-sure").removeAttr('disabled');
 						$(".update-info").css("display", "block");
 						$("#update .modalTips").css("display", "none");
-						updateUser();
 
 					}
+				}
+				//				tableUsertoRole.ajax.url('/role/usertorole').load();
+				// 初始化tableUserToRole
 
-					//					console.log(table.row(this).data());
-					/*console.log(table.rows().data());
-					console.log(table.rows().nodes());
-					rows= table.rows().nodes().to$();*/
-
-				});
-
-				//				给无效状态添加红色标记
-				table.on('draw', function() {
-					column6 = table.column(6).data();
-					nodes = table.column(6).nodes().to$();
-					//					table.column(6).addclass
-					//					console.log(nodes[1]);
-					//					nodes.toJQuery().addClass('addRedColor');
-
-					for(var i = 0; i < column6.length; i++) {
-						if(column6[i] == '无效') {
-							nodes.eq(i).addClass('addRedColor');
-
+				var tableUsertoRole = $('#usertorole').DataTable({
+					//						"processing": true,
+					"serverSide": true,
+					"bLengthChange": false,
+					"ajax": {
+						"url": '/role/usertorole',
+						"type": "get",
+						"data": function(d) {
+							if(searchParams) {
+								$.extend(d, searchParams); //给d扩展参数
+							}
+						}
+					},
+					"ordering": false,
+					"searching": false,
+					"columns": [{
+							"data": "ID"
+						},
+						{
+							"data": "UserName"
+						}
+					],
+					"language": {
+						"sProcessing": "处理中...",
+						"lengthMenu": "每页 _MENU_ 条记录",
+						"zeroRecords": "没有找到记录",
+						"info": "第 _PAGE_ 页 ( 总共 _PAGES_ 页 )",
+						"infoEmpty": "无记录",
+						"infoFiltered": "(从 _MAX_ 条记录过滤)",
+						"sUrl": "",
+						"sEmptyTable": "表中数据为空",
+						"sLoadingRecords": "载入中...",
+						"sInfoThousands": ",",
+						"search": "按姓名搜索:",
+						"oPaginate": {
+							"sFirst": "首页",
+							"sPrevious": "上页",
+							"sNext": "下页",
+							"sLast": "末页"
+						},
+						"oAria": {
+							"sSortAscending": ": 以升序排列此列",
+							"sSortDescending": ": 以降序排列此列"
 						}
 
 					}
+				});
 
-					/*nodes = table.column(8).nodes().to$();
-					var deleteBtn = $("<button type='button' class='btn btn-default' data-toggle='modal'  data-target='#delete'>删除</button>");
-					nodes.append(deleteBtn);*/
+				//添加按钮
+				var btns = $("<div class='floatright'><input type='text' class='form-control' placeholder='请输入名称...' id='usertorole-value'><div class='btn-group'><button type='button' class='btn btn-default' style='margin-left:5px' id='usertorole-select'>查询</button><button type='button' class='btn btn-default' id='usertorole-reset'>重置</button></div><div class='btn-group'><button type='button' class='btn btn-default' data-toggle='modal'  data-target='#usertoroe-updateTips' >编辑</button><button type='button' class='btn btn-default' data-toggle='modal'  data-target='#usertorole-deleteTips' >删除</button></div></div>");
 
+				var b = $(" #usertorole_wrapper .row").first().find(".col-sm-6").last();
+				b.removeClass("col-sm-6");
+				b.addClass("col-sm-12 left20");
+				b.append(btns);
+
+				var isClick = false;
+				var isCreate = false;
+				var usertoroleDataJson;
+				var deleteUserToRoleUserID; //得到要被删除的角色id
+
+				//用户对应的角色搜索
+				$("#usertorole-select").click(function() {
+					searchParams.searchUserName = $("#usertorole-value").val();
+					//					console.log(searchParams.searchUserName);
+					//					console.log($("#usertorole-value").val());
+					tableUsertoRole.ajax.url('/role/usertorole/search').load();
+					tableRoleInfo.ajax.url('/role/info').draw();
+					tableRoleInfo.$('tr.selected').removeClass('selected');
+
+				});
+
+				//显示被搜索用户的角色信息
+				$('#usertorole tbody').on('click', 'tr', function(event) {
+					if($(this).hasClass('clicked')) {
+						$(this).removeClass('clicked');
+						isClick = false;
+					} else {
+						tableUsertoRole.$('tr.clicked').removeClass('clicked');
+						$(this).addClass('clicked');
+						isClick = true;
+						usertoroleDataJson = tableUsertoRole.row(this).data();
+//						console.log(usertoroleDataJson);
+						deleteUserToRoleUserID = usertoroleDataJson.ID
+						$("#usertoroe-update-roleID").val(usertoroleDataJson.ID);
+						$("#usertoroe-update-username").val(usertoroleDataJson.UserName);
+					}
+
+					//					创建编辑的角色下拉列表
+					if(!isCreate) {
+						$.ajax({
+							type: "get",
+							url: "/role/fullInfo",
+							success: function(data) {
+								//							var info = JSON.parse(data);
+								//							console.log(data[0].ID);
+								//							console.log(data.length);
+								var rolenameSelect = $("#rolename-select");
+								var selects = $("<select name='role-select' class='form-control'  id='role-select'></select>")
+								for(var i = 0; i < data.length; i++) {
+									var options = $("<option value='" + data[i].ID + "'>" + data[i].RoleName + "</option>");
+									selects.append(options);
+								}
+								rolenameSelect.append(selects);
+//								console.log(usertoroleDataJson);
+
+							}
+						});
+						isCreate = true;
+					}
+					rightClickTips(isSelect, isClick);
+
+					//改变身份的提示信息
+
+				});
+				rightClickTips(isSelect, isClick);
+
+				function rightClickTips(isSelect, isClick) {
+					if(isSelect) {
+						if(isClick) {
+						
+							$("#usertorole-delete-error").html('是否要删除(姓名：' + usertoroleDataJson.UserName + ')该行数据');
+							$(".usertorole-update-info").css("display", "block");
+							$(".modalTips").css("display", "none");
+							$("#usertorole-update-sure").removeAttr('disabled');
+							$("#usertorole-delete-sure").removeAttr('disabled');
+
+						} else {
+							$("#role-title").removeClass('addRedColor');
+							$("#role-title").html(rolename);
+							//							右侧删除
+							$("#usertorole-delete-error").html('请选择右侧一行数据进行删除!');
+							$("#usertorole-delete-sure").attr('disabled', 'disabled');
+							//					右侧编辑
+							$(".usertorole-update-info").css("display", "none");
+							$("#usertorole-update-sure").attr('disabled', 'disabled');
+							$(".modalTips").css("display", "block");
+							$("#usertorole-updateTips-error").html('请选择右侧一行数据进行编辑!');
+
+						}
+
+					} else {
+						if(isClick) {
+							/*$("#role-title").addClass('addRedColor');
+							console.log(usertoroleDataJson.RoleName);
+							if(usertoroleDataJson.RoleName == null) {
+								$("#role-title").html("该用户的角色身份不存在");
+
+							} else {
+								$("#role-title").html("该用户身份为：" + usertoroleDataJson.RoleName);
+							}*/
+							$("#usertorole-delete-error").html('是否要删除(姓名：' + usertoroleDataJson.UserName + ')该行数据');
+							$(".usertorole-update-info").css("display", "block");
+							$(".modalTips").css("display", "none");
+							$("#usertorole-update-sure").removeAttr('disabled');
+							$("#usertorole-delete-sure").removeAttr('disabled');
+						} else {
+							//							右侧删除
+							$("#usertorole-delete-error").html('请选择右侧一行数据进行删除!');
+							$("#usertorole-delete-sure").attr('disabled', 'disabled');
+							//					右侧编辑
+							$(".usertorole-update-info").css("display", "none");
+							$("#usertorole-update-sure").attr('disabled', 'disabled');
+							$(".modalTips").css("display", "block");
+							$("#usertorole-updateTips-error").html('请选择右侧一行数据进行编辑!');
+						}
+
+					}
+				}
+
+				//				用户对应的角色重置
+				$("#usertorole-reset").click(function() {
+
+					tableUsertoRole.ajax.url('/role/usertorole').load();
+				})
+
+				//删除用户对用的角色判断是否点击
+				//				console.log(isSelect);
+				//				console.log(isClick);
+
+				//删除用户对应角色
+				$("#usertorole-delete-sure").click(function() {
+					$.ajax({
+						type: "post",
+						url: "/role/usertorole/delete",
+						data: {
+
+							"UserID": deleteUserToRoleUserID
+						},
+						success: function(data) {
+							if(data.code == 1) {
+								$(".modalTips").css("display", "block");
+								$("#usertorole-deleteTips-error").html(data.msg);
+								tableUsertoRole.ajax.url('/role/usertorole').load();
+
+							} else {
+								$(".modalTips").css("display", "block");
+								$("#usertorole-deleteTips-error").html(data.msg);
+
+							}
+							//							console.log("添加成功");
+						},
+						error: function(er) {
+							$(".modalTips").css("display", "block");
+							$("#deleteTips-error").html('服务器错误');
+						}
+
+					});
+
+				});
+
+				//				编辑用户对应角色
+				$("#usertorole-update-sure").click(function() {
+					var RoleID = $("#role-select").val();
+					var UserID = usertoroleDataJson.ID;
+					//					console.log(RoleId);
+					//					console.log(UserId);
+					$.ajax({
+						type: "post",
+						url: "/role/usertorole/add",
+						data: {
+							"UserID": UserID,
+							"RoleID": RoleID
+						},
+						success: function(data) {
+							if(data.code == 1) {
+								$(".modalTips").css("display", "block");
+								$("#usertorole-deleteTips-error").html(data.msg);
+								tableUsertoRole.ajax.url('/role/usertorole').load();
+
+							} else {
+								$(".modalTips").css("display", "block");
+								$("#usertorole-deleteTips-error").html(data.msg);
+
+							}
+							//							console.log("添加成功");
+						},
+						error: function(er) {
+							$(".modalTips").css("display", "block");
+							$("#deleteTips-error").html('服务器错误');
+						}
+
+					});
 				});
 
 			});
 		</script>
+
 	</body>
 
 </html>

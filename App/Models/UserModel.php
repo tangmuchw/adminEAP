@@ -74,12 +74,13 @@ class UserModel extends BaseModel
 		$sth = $this -> _dbHandle -> prepare($sql);
 		$sth -> execute();
 
-		return $sth -> fetch();
+		return $sth -> fetchAll();
 	}
 	//编辑用户
 	public function updateUser($email,$state){
 		$sql = "UPDATE ".$this->_table." SET State ='".$state."' where Email='".$email."'";
 		return $this->query($sql); 
 	}
+	
 }
 ?>
