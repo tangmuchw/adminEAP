@@ -43,14 +43,14 @@ class RoleModel extends UserModel
 	}
 
 		//编辑角色
-		public function updateRole($roleID,$rolename){
+	public function updateRole($roleID,$rolename){
 			$sql = "UPDATE ".$this->_table." SET RoleName ='".$rolename."' where ID=".$roleID;
 			return $this->query($sql); 
 		}
 
-	//编辑角色
+	//查找角色
 	public function selectUserToRole($roleID){
-				$sql = "SELECT `user`.ID,`user`.UserName FROM ".$this->_table." INNER JOIN usertorole 
+				$sql = "SELECT `user`.ID,`user`.UserName,RoleName,RoleId FROM ".$this->_table." LEFT JOIN usertorole 
 				ON role.ID = usertorole.RoleId
 				INNER JOIN user 
 				ON usertorole.UserId = `user`.ID where role.ID =".$roleID;
@@ -63,7 +63,7 @@ class RoleModel extends UserModel
 	//	搜索用户对应的角色
 	public function selectRoleOfUser($username){
 		
-		$sql = "select user.ID,UserName,RoleName from `user`
+		$sql = "select user.ID,UserName,RoleName,RoleId from `user`
 				left JOIN usertorole
 				ON user.ID = usertorole.UserId
 				left JOIN role

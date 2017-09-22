@@ -22,9 +22,9 @@ class 	UserController extends BaseController
 		include APP_PATH.'/Views/user/index.html';
 
 	}
-	public function UserItem(Request $request,Response $response,$args)
+	public function UserSelf(Request $request,Response $response,$args)
 	{
-		include APP_PATH.'/Views/user/item.html';
+		include APP_PATH.'/Views/user/self.html';
 
 	}
 	
@@ -52,7 +52,6 @@ class 	UserController extends BaseController
 	
 	public function Logout($request, $response, $args) {
 		unset($_SESSION["UserName"]);
-		include APP_PATH . '/Views/User/Login.html';
 	}
 	
 	public function UserInfo(Request $request,Response $response, $args) 
@@ -155,6 +154,13 @@ class 	UserController extends BaseController
 			
 		}
 		return $response -> withJson($data);
+	}
+
+	public function UserSelfSearch(Request $request,Response $response, $args) {
+		$email = $_SESSION['UserName'];
+		$user = new UserModel();
+		$result = $user->selfSelect($email);
+		return $response -> withJson($result);
 	}
 	
 	

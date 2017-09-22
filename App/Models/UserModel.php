@@ -38,7 +38,7 @@ class UserModel extends BaseModel
 		on roletopower.PowerId = Power.ID
 		left JOIN menu
 		on Power.ActionId = power.ID 
-		where UserName='".$user."' and power.ControllerAction='".$urlpath."'";
+		where Email='".$user."' and power.ControllerAction='".$urlpath."'";
 		
 		return $this->query($sql); 
 	}
@@ -81,6 +81,17 @@ class UserModel extends BaseModel
 		$sql = "UPDATE ".$this->_table." SET State ='".$state."' where Email='".$email."'";
 		return $this->query($sql); 
 	}
+
+	// 查找个人信息
+	public function selfSelect($email){
+		$sql = "SELECT UserName,Face FROM ".$this->_table." 
+			where Email='".$email."'";
+		$sth = $this -> _dbHandle -> prepare($sql);
+		$sth -> execute();
+
+		return $sth -> fetch();
+	}
+	
 	
 }
 ?>

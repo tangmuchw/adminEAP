@@ -24,6 +24,11 @@ class RoleController extends UserController
 		include APP_PATH.'/Views/role/list.html';
 	}
 
+	public function RoleSelf(Request $request,Response $response,$args)
+	{
+		include APP_PATH.'/Views/role/self.html';
+	}
+
 	public function RoleInfo(Request $request,Response $response,$args)
 	{
 		$role = new RoleModel();

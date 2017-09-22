@@ -11,47 +11,9 @@ $app -> add('\App\Middlewares\TrailingSlashMiddleware');
 $app->get('/','App\Controllers\UserController:login');	
 $app->get('/login','App\Controllers\UserController:login') -> setname('Login');	
 $app->post('/login','App\Controllers\UserController:postLogin');	
-$app->get('/loginout','App\Controllers\UserController:logout') -> setname('Logout');	
+$app->get('/loginout','App\Controllers\UserController:logout');	
 $app -> get('/404', 'App\Controllers\BaseController:Error') -> setname('Error');
 
-
-/*
- * 普通用户用户登录
- */
-$app -> get('/normal/index', 'App\Controllers\NormalController:PersonIndex');
-
-/*
- * 管理员用户用户登录
- */
-$app -> get('/user/list', 'App\Controllers\UserController:UserList');
-$app -> get('/user/info', 'App\Controllers\UserController:UserInfo');
-$app -> get('/user/index', 'App\Controllers\UserController:UserIndex') ;
-$app -> get('/user/item', 'App\Controllers\UserController:UserItem');
-$app -> get('/user/select', 'App\Controllers\UserController:UserSelect');
-$app -> post('/user/add', 'App\Controllers\UserController:UserAdd');
-$app -> post('/user/delete', 'App\Controllers\UserController:UserDelete');
-$app -> post('/user/update', 'App\Controllers\UserController:UserUpdate');
-
-
-/*
- * 超级管理员用户用户登录
- */
-
-$app -> get('/role/index','App\Controllers\RoleController:RoleIndex');
-$app -> get('/role/user/userList','App\Controllers\RoleController:RoleUserList');
-$app -> get('/role/user/info','App\Controllers\RoleController:UserInfo');
-$app -> get('/role/list','App\Controllers\RoleController:RoleList');
-$app -> get('/role/info','App\Controllers\RoleController:RoleInfo');
-$app -> get('/role/select','App\Controllers\RoleController:RoleSelect');
-$app -> get('/role/fullInfo','App\Controllers\RoleController:RoleFullInfo');
-$app -> get('/role/usertorole','App\Controllers\RoleController:RoleSelectUserToRole');
-$app -> get('/role/usertorole/search','App\Controllers\RoleController:RoleSelectRoleOfUser');
-
-$app -> post('/role/add','App\Controllers\RoleController:RoleAdd');
-$app -> post('/role/delete','App\Controllers\RoleController:RoleDelete');
-$app -> post('/role/update','App\Controllers\RoleController:RoleUpdate');
-$app -> post('/role/usertorole/delete','App\Controllers\RoleController:RoleRoleOfUserDelete');
-$app -> post('/role/usertorole/add','App\Controllers\RoleController:RoleRoleOfUserAdd');
 
 
 $app->group('',function(){
@@ -67,5 +29,48 @@ $app->group('',function(){
 	// $this -> post('/role/delete', 'App\Controllers\RoleController:RoleDelete');
 	// $this -> post('/role/update', 'App\Controllers\RoleController:RoleUpdate');
 //	$this -> get('/role/list', 'App\Controllers\RoleController:RoleList');
+/*
+ * 普通用户用户登录
+ */
+ $this-> get('/normal/index', 'App\Controllers\NormalController:PersonIndex');
+ $this-> get('/normal/self', 'App\Controllers\NormalController:Personself');
+ 
+ /*
+  * 管理员用户用户登录
+  */
+ $this-> get('/user/list', 'App\Controllers\UserController:UserList');
+ $this-> get('/user/info', 'App\Controllers\UserController:UserInfo');
+ $this-> get('/user/index', 'App\Controllers\UserController:UserIndex') ;
+ $this-> get('/user/select', 'App\Controllers\UserController:UserSelect');
+
+ $this-> get('/user/self', 'App\Controllers\UserController:UserSelf');
+ $this-> post('/user/add', 'App\Controllers\UserController:UserAdd');
+ $this-> post('/user/delete', 'App\Controllers\UserController:UserDelete');
+ $this-> post('/user/update', 'App\Controllers\UserController:UserUpdate');
+ $this-> get('/user/selfSearch', 'App\Controllers\UserController:UserSelfSearch');
+ 
+ 
+ /*
+  * 超级管理员用户用户登录
+  */
+ 
+ $this-> get('/role/index','App\Controllers\RoleController:RoleIndex');
+ $this-> get('/role/user/userList','App\Controllers\RoleController:RoleUserList');
+ $this-> get('/role/user/info','App\Controllers\RoleController:UserInfo');
+ $this-> get('/role/list','App\Controllers\RoleController:RoleList');
+ $this-> get('/role/info','App\Controllers\RoleController:RoleInfo');
+ $this-> get('/role/select','App\Controllers\RoleController:RoleSelect');
+ $this-> get('/role/fullInfo','App\Controllers\RoleController:RoleFullInfo');
+ $this-> get('/role/usertorole','App\Controllers\RoleController:RoleSelectUserToRole');
+ $this-> get('/role/usertorole/search','App\Controllers\RoleController:RoleSelectRoleOfUser');
+ $this-> get('/role/self','App\Controllers\RoleController:RoleSelf');
+ 
+ $this-> post('/role/add','App\Controllers\RoleController:RoleAdd');
+ $this-> post('/role/delete','App\Controllers\RoleController:RoleDelete');
+ $this-> post('/role/update','App\Controllers\RoleController:RoleUpdate');
+ $this-> post('/role/usertorole/delete','App\Controllers\RoleController:RoleRoleOfUserDelete');
+ $this-> post('/role/usertorole/add','App\Controllers\RoleController:RoleRoleOfUserAdd');
+ 
+ 
 })-> add(new App\Middlewares\RoleMiddleware($container)) -> add(new App\Middlewares\AuthMiddleware($container));
 ?>

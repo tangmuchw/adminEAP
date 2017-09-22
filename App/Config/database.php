@@ -3,7 +3,7 @@
     $config['db']['host'] = "127.0.0.1";
     $config['db']['username'] = "root";
     $config['db']['password'] = "123456";
-    $config['db']['dbname'] = "roledb";
+    $config['db']['dbname'] = "chwroledb";
 
     //默认控制器和操作名
     $config['defaultController'] = 'User';

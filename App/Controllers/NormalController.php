@@ -15,6 +15,10 @@ class NormalController extends BaseController
 		include APP_PATH.'/Views/person/index.html';
 	}
 	
+	public function PersonSelf(Request $request,Response $response,$args)
+	{
+		include APP_PATH.'/Views/person/self.html';
+	}
 	
 }
 ?>
