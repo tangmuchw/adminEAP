@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50716
 File Encoding         : 65001
 
-Date: 2017-09-22 14:00:16
+Date: 2017-09-22 12:59:59
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -413,5 +413,5 @@ INSERT INTO `usertorole` VALUES ('97', '97', '3');
 INSERT INTO `usertorole` VALUES ('98', '98', '2');
 INSERT INTO `usertorole` VALUES ('99', '99', '2');
 INSERT INTO `usertorole` VALUES ('100', '100', '2');
-INSERT INTO `usertorole` VALUES ('103', '101', '1');
+INSERT INTO `usertorole` VALUES ('103', '101', '3');
 INSERT INTO `usertorole` VALUES ('108', '5', '2');

@@ -92,7 +92,7 @@
 				height: 20px;
 			}
 			
-			.modalTips {
+			.modal .modalTips {
 				display: none;
 			}
 			
@@ -838,13 +838,13 @@
 
 							<input type="text" class="form-control" placeholder="编号" id="addNewID" name="addNewID" />
 						</div>
-
-						<div class="callout callout-info modalTips">
+						<!--<div class="callout callout-info modalTips">
 							<h4>Tip!</h4>
 							<p id="addTips-error">
 
 							</p>
-						</div>
+						</div>-->
+
 					</div>
 
 					<div class="modal-footer">
@@ -1227,7 +1227,7 @@
 					rolename = tableRoleInfo.row(this).data().RoleName;
 					deleteRoleID = tableRoleInfo.row(this).data().ID;
 					roleInfoJson = tableRoleInfo.row(this).data();
-					leftSelectTips(isSelect);
+//					leftSelectTips(isSelect);
 					updateUser();
 					searchParams.roleID = roleInfoJson.ID;
 					tableUsertoRole.ajax.url('/role/usertorole').load();
@@ -1235,18 +1235,18 @@
 
 				});
 				//				console.log(roleInfoJson);
-				leftSelectTips(isSelect);
+//				leftSelectTips(isSelect);
+				console.log(isSelect);
 
 				function leftSelectTips(data) {
 					//判断是否被选中
 					if(!isSelect) {
 						$("#delete-error").html('请选择左侧的一行数据进行删除!');
 						$("#delete-sure").attr('disabled', 'disabled');
-
 						//					设置update
 						$(".update-info").css("display", "none");
 						$("#update-sure").attr('disabled', 'disabled');
-						$("#update .modalTips").css("display", "block");
+						$(".modalTips").css("display", "block");
 						$("#updateTips-error").html('请选择左侧一行数据进行编辑');
 						$("#role-title").html('用户的角色信息');
 						searchParams.roleID = '';
@@ -1257,7 +1257,7 @@
 
 						$("#update-sure").removeAttr('disabled');
 						$(".update-info").css("display", "block");
-						$("#update .modalTips").css("display", "none");
+						$(".modalTips").css("display", "none");
 
 					}
 				}
@@ -1372,19 +1372,19 @@
 						$(this).addClass('clicked');
 						isClick = true;
 						usertoroleDataJson = tableUsertoRole.row(this).data();
-//						console.log(usertoroleDataJson);
+						//						console.log(usertoroleDataJson);
 						deleteUserToRoleUserID = usertoroleDataJson.ID
 						//						填入编辑角色的信息
 						$("#usertoroe-update-roleID").val(usertoroleDataJson.ID);
 						$("#usertoroe-update-username").val(usertoroleDataJson.UserName);
 					}
 
-					rightClickTips(isClick);
+//					rightClickTips(isClick);
 
 					//改变身份的提示信息
 
 				});
-				rightClickTips(isClick);
+//				rightClickTips(isClick);
 
 				function rightClickTips(isClick) {
 					if(isClick) {
@@ -1415,8 +1415,7 @@
 				$("#usertorole-reset").click(function() {
 
 					tableUsertoRole.ajax.url('/role/usertorole').load();
-					
-					
+
 				})
 
 				//删除用户对用的角色判断是否点击
