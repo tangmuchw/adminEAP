@@ -42,9 +42,101 @@
 
 		<!-- Google Font -->
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+		<!--cropper-->
+		<link rel="stylesheet" href="/static/css/cropper.css">
+
 		<style type="text/css">
 			.modal .input-group {
 				margin-bottom: 20px;
+			}
+			
+			.avatar-img {
+				margin: 2px;
+				width: 160px;
+				height: 160px;
+				text-align: center;
+				align: center;
+				border-radius: 50%;
+				padding: 3px;
+				border: 3px solid #d2d6de;
+			}
+			
+			.avatar-container {
+				border-radius: 6px;
+				width: 168px;
+				height: 168px;
+				margin: 0 auto;
+			}
+			
+			.text-center {
+				text-align: center;
+			}
+			
+			.btn-camera:hover {
+				background-color: gray;
+				color: #fff;
+			}
+			
+			.btn.focus,
+			.btn:focus,
+			.btn:hover {
+				color: #333;
+				text-decoration: none;
+			}
+			
+			.relative5 {
+				position: relative;
+				top: 5px;
+			}
+			
+			.address {
+				padding-top: 10px;
+			}
+			
+			.address select {
+				/*margin-right: 10px;*/
+			}
+			
+			.image-box {
+				max-width: 200px;
+			}
+			
+			#upload_modal img {
+				max-width: 100%;
+			}
+			/* Override Cropper's styles */
+			
+			.cropper-view-box,
+			.cropper-face {
+				border-radius: 50%;
+			}
+			
+			.modal-body {
+				overflow: hidden;
+			}
+			
+			.image-box {
+				float: left;
+			}
+			
+			.result-box {
+				float: right;
+				width: 350px;
+				height: 200px;
+				padding-left: 100px;
+			}
+			
+			.result {
+				border: 1px solid black;
+			}
+			
+			.image-upload {
+				margin-bottom: 20px;
+			}
+			
+			#cropper-button {
+				float: left;
+				margin-right: 10px;
 			}
 		</style>
 	</head>
@@ -272,15 +364,15 @@
 							<!-- User Account: style can be found in dropdown.less -->
 							<li class="dropdown user user-menu">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-									<img src="/static/img/1140858.jpg" class="user-image" alt="User Image myFace">
+									<img src="/static/img/1140858.jpg" class="user-image myFace" alt="User Image">
 									<span class="hidden-xs myName">汤木维</span>
 								</a>
 								<ul class="dropdown-menu">
 									<!-- User image -->
 									<li class="user-header">
-										<img src="" class="img-circle myFace" alt="User Image ">
+										<img src="" class="img-circle myFace" alt="User Image">
 										<p>
-											<span class='myName'>汤木维</span>
+											<span class="myName">汤木维</span>
 											<small>2012年11月注册</small>
 										</p>
 									</li>
@@ -325,7 +417,7 @@
 					<!-- Sidebar user panel -->
 					<div class="user-panel">
 						<div class="pull-left image">
-							<img src="/static/img/user2-160x160.jpg" class="img-circle myFace" alt="User Image myFace">
+							<img src="/static/img/user2-160x160.jpg" class="img-circle myFace" alt="User Image">
 						</div>
 						<div class="pull-left info">
 							<p class="myName">汤木维</p>
@@ -360,43 +452,7 @@
 								</li>
 							</ul>
 						</li>
-						<li>
-							<a href="pages/widgets.html">
-								<i class="fa fa-th"></i> <span>资源管理</span>
-								<span class="pull-right-container">
-              						<small class="label pull-right bg-green">new</small>
-            					</span>
-							</a>
-						</li>
-						<li class="treeview">
-							<a href="#">
-								<i class="fa fa-laptop"></i>
-								<span>系统日志</span>
-								<span class="pull-right-container">
-              						<i class="fa fa-angle-left pull-right"></i>
-           			 			</span>
-							</a>
-							<ul class="treeview-menu">
-								<li>
-									<a href="pages/UI/general.html"><i class="fa fa-circle-o"></i> General</a>
-								</li>
-								<li>
-									<a href="pages/UI/icons.html"><i class="fa fa-circle-o"></i> Icons</a>
-								</li>
-								<li>
-									<a href="pages/UI/buttons.html"><i class="fa fa-circle-o"></i> Buttons</a>
-								</li>
-								<li>
-									<a href="pages/UI/sliders.html"><i class="fa fa-circle-o"></i> Sliders</a>
-								</li>
-								<li>
-									<a href="pages/UI/timeline.html"><i class="fa fa-circle-o"></i> Timeline</a>
-								</li>
-								<li>
-									<a href="pages/UI/modals.html"><i class="fa fa-circle-o"></i> Modals</a>
-								</li>
-							</ul>
-						</li>
+
 					</ul>
 				</section>
 				<!-- /.sidebar -->
@@ -411,39 +467,133 @@
       				</h1>
 					<ol class="breadcrumb">
 						<li>
-							<a href="/user/index"><i class="fa fa-dashboard"></i> 首页</a>
+							<a href="/person/index"><i class="fa fa-dashboard"></i> 首页</a>
 						</li>
 						<li class="active">公共中心/li>
 					</ol>
 				</section>
 				<!-- Main content -->
 				<section class="content">
-					<!-- Small boxes (Stat box) -->
 					<div class="row">
 						<div class="col-xs-12">
-							<!-- /.box -->
-
-							<div class="box">
-								<!-- .box-header -->
-								<div class="box-header">
-									<h3 class="box-title">放假通知：</h3>
-								</div>
-								<!-- /.box-header -->
-								<div class="box-body">
-									<div class="callout callout-info modalTips">
-										<h4>通知：</h4>
-										<p id="inform-error">
-											国庆节放假，从10月1号到10月8号。
-										</p>
+							<div class="box box-info">
+								<form id="user-form" name="user-form" class="form-horizontal bv-form" novalidate="novalidate">
+									<input name="id" type="hidden">
+									<input name="version" type="hidden">
+									<input name="isSuperAdmin" type="hidden">
+									<input name="createDateTime" data-flag="date" data-format="yyyy-mm-dd hh:ii:ss" type="hidden">
+									<input name="deleted" type="hidden">
+									<input value="3226799c-7825-40de-ad67-15c816215b79" id="csrftoken" type="hidden">
+									<input id="avatarId" name="avatarId" type="hidden">
+									<div class="box-header">
+										<div class="col-xs-12 text-center">
+											<!--upload_face-->
+											<div class="avatar-container text-center">
+												<img src="/static/img/user2-160x160.jpg" id="avatarImg" class="avatar-img myFace preFace">
+											</div>
+											<div>
+												<button type="button" class="btn btn-sm btn-camera" data-btn-type="upload" data-toggle='modal' data-target='#upload_modal'><i class="fa fa-camera">&nbsp;上传/更改头像</i></button>
+											</div>
+										</div>
 									</div>
-								</div>
-								<!-- /.box-body -->
-							</div>
-							<!-- /.box -->
-						</div>
+									<div class="box-body">
+										<div class="col-md-6">
+											<div class="form-group has-feedback">
+												<label for="name" class="col-sm-3 control-label">姓名</label>
+												<div class="col-sm-8">
+													<input class="form-control" id="name" name="name" placeholder="姓名" data-bv-field="name" type="text"><i style="display: none;" class="form-control-feedback" data-bv-icon-for="name"></i>
+													<small style="display: none;" data-bv-validator="notEmpty" data-bv-validator-for="name" class="help-block">请输入姓名</small></div>
+											</div>
+											<div class="form-group has-feedback">
+												<label for="email" class="col-sm-3 control-label">Email</label>
+												<div class="col-sm-8">
+													<input class="form-control" id="email" name="email" placeholder="Email" data-bv-field="email" type="text"><i style="display: none;" class="form-control-feedback" data-bv-icon-for="email"></i>
+													<small style="display: none;" data-bv-validator="notEmpty" data-bv-validator-for="email" class="help-block">请输入邮件</small><small style="display: none;" data-bv-validator="emailAddress" data-bv-validator-for="email" class="help-block">非法的邮件格式</small></div>
+											</div>
+											<div class="form-group">
+												<label for="phone" class="col-sm-3 control-label">手机</label>
+												<div class="col-sm-8">
+													<input class="form-control" id="phone" name="phone" placeholder="手机" type="text">
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group has-feedback">
+												<label for="loginName" class="col-sm-3 control-label">年龄</label>
+												<div class="col-sm-8 relative5">
+													<select name="age" id="age">
+														<script type="text/javascript">
+															for(var i = 16; i < 70; i++) {
+																var options = document.createElement('option');
+																options.value = i;
+																options.innerHTML = i;
+																document.getElementById('age').appendChild(options);
 
+															}
+														</script>
+													</select>
+												</div>
+
+											</div>
+											<div class="form-group">
+												<label class="col-sm-3 control-label">性别</label>
+												<div class="col-sm-8 relative5">
+													<div id="sex">
+														<input type="radio" name="sex" class="sex" value="男"/>男
+														<input type="radio" name="sex" class="sex" value="女" />女
+													</div>
+												</div>
+											</div>
+											<div class="form-group">
+												<label for="address" class="col-sm-3 control-label">地址</label>
+												<div class="col-sm-9">
+													<div class="address">
+														<!--省-->
+														<p>
+															<select name="province" id="provinceSelect">
+																<option value="请选择市">请选择省</option>
+															</select>
+
+														</p>
+
+														<!--市-->
+														<p>
+															<select name="" id="city">
+																<option value="请选择市">请选择市</option>
+															</select>
+														</p>
+
+														<!--区-->
+														<p>
+															<select name="area" id="area">
+																<option value="请选择区/县类别">请选择区/县类别</option>
+															</select>
+														</p>
+
+														<!--县-->
+														<p>
+															<select name="" id="county">
+																<option value="请选择县/县">请选择县/区</option>
+															</select>
+														</p>
+
+													</div>
+
+												</div>
+											</div>
+										</div>
+									</div>
+									<!-- /.box-body -->
+									<div class="box-footer text-right">
+										<!--以下两种方式提交验证,根据所需选择-->
+										<button type="button" class="btn btn-primary" data-btn-type="cancel">取消</button>
+										<button type="submit" class="btn btn-primary" data-btn-type="save">提交</button>
+									</div>
+									<!-- /.box-footer -->
+									<input value="" type="hidden"></form>
+							</div>
+						</div>
 					</div>
-					<!-- /.row -->
 				</section>
 				<!-- /.content -->
 			</div>
@@ -653,6 +803,41 @@
 		</div>
 		<!-- ./wrapper -->
 
+		<!--#upload_modal-->
+		<div id="upload_modal" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title">上传头像:</h4>
+					</div>
+					<div class="modal-body">
+						<div class="image-box">
+							<div class="image-upload">
+								<img id="image" src="/static/img/user2-160x160.jpg" alt="Picture">
+							</div>
+
+							<div class="upload-select">
+								<button type="submit" id="cropper-button">确认裁剪</button>
+								<input type="file" name="upload_file" id='upload_file' style="display: none;">
+								<input type="button" name="" onclick="document.getElementById('upload_file').click();" value="选择文件">
+							</div>
+						</div>
+
+						<div class="result-box">
+							<h5>裁剪结果展示：</h5>
+							<div id="result"></div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default close2" data-dismiss="modal">取消</button>
+						<button type="button" class="btn btn-primary" id="upload-sure">确定</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--/#upload_modal-->
+
 		<!-- jQuery 3 -->
 		<script src="/static/bower_components/jquery/dist/jquery.min.js"></script>
 		<!-- jQuery UI 1.11.4 -->
@@ -680,7 +865,10 @@
 		<!--<script type="text/javascript" src="/static/plugins/mock/mock.js"></script>-->
 		<!--userAction-->
 		<script type="text/javascript" src="/static/js/userAction.js"></script>
-
+		<script type="text/javascript" src="/static/js/jsonArea.js"></script>
+		<script type="text/javascript" src="/static/js/address.js"></script>
+		<script type="text/javascript" src="/static/js/cropper.js"></script>
+		<script type="text/javascript" src="/static/js/getMyself.js"></script>
 	</body>
 
 </html>

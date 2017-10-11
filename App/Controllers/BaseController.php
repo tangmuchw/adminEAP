@@ -5,11 +5,14 @@ use \interop\Container\ContainerInterface as ContainerInterface;
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
+use App\Models\BaseModel;
+
 class BaseController {
 
 	protected $container;
 
-	public function __construct(ContainerInterface $ci) {
+	public function __construct(ContainerInterface $ci) 
+	{
 		$this -> container = $ci;
 	}
 	
@@ -18,6 +21,13 @@ class BaseController {
 		include APP_PATH.'/Views/404.html';
 	}
 	
+	public function myselfInfo(Request $request,Response $response, $args) 
+	{
+		$email = $_SESSION['UserName'];
+		$base = new BaseModel();
+		$result = $base-> getMyselfInfo($email);
+		return $response -> withJson($result);
+	}
 
 }
 ?>

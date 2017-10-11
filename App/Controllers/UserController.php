@@ -36,8 +36,19 @@ class 	UserController extends BaseController
 		$user = new UserModel();
 		if($user -> getUserInfo($username,$password)){
 			$index = $user -> getUserToRole($username);
+			switch($index[roleId]) {
+					case '1':
+							$home = '/role/index';
+							break;
+					case '2':
+							$home = '/user/index';
+							break;
+					case '3':
+							$home = '/normal/index';
+							break;
+			}
 			$_SESSION['UserName'] = $username;
-			$data = array('msg' => '登录成功', 'code' => '1','index' => $index[roleId]);
+			$data = array('msg' => '登录成功', 'code' => '1','index' => $home);
 		}else{
 			$data = array('msg' => '邮箱或者密码错误', 'code' => '0');
 			
@@ -59,11 +70,6 @@ class 	UserController extends BaseController
 		
 		$user = new UserModel();
 		$result = $user->getUserFullInfo();
-//		var_dump($result);
-		
-		/*for($i=0 ; $i<count($result); $i++){
-			$result[$i]['btn'] = "<button type='button' class='btn btn-default delete-btn' data-toggle='modal' >删除</button>"; 
-		}*/
 		$start = $_GET["start"];
 		//表可以在当前绘图中显示的记录数。
 		$length = $_GET["length"];
@@ -87,11 +93,10 @@ class 	UserController extends BaseController
 			$newarr->data[$h] = $result[$i];
 		}
 		return $response->withJson($newarr);
-//		echo json_encode($newarr);
-//		echo "UserInfo";
 	}
 	
-	public function UserAdd(Request $request,Response $response, $args) {
+	public function UserAdd(Request $request,Response $response, $args)
+	 {
 		$newUserName =$request -> getParam('newUserName');
 		$newPwd = $request -> getParam('newPwd');
 		$newEmail = $request -> getParam('newEmail');
@@ -105,7 +110,8 @@ class 	UserController extends BaseController
 		return $response -> withJson($data);
 	}
 	
-	public function UserDelete(Request $request,Response $response, $args) {
+	public function UserDelete(Request $request,Response $response, $args) 
+	{
 		$email = $request -> getParam('email');
 		$user = new UserModel();
 		if($user -> deleteUSer($email)){
@@ -117,17 +123,12 @@ class 	UserController extends BaseController
 		return $response -> withJson($data);
 	}
 	
-	public function UserSelect(Request $request,Response $response, $args) {
+	public function UserSelect(Request $request,Response $response, $args) 
+	{
 		
 		$searchValue = $request -> getParam('searchValue');
 		$user = new UserModel();
 		$result = $user -> selectUser($searchValue);
-//		var_dump($result);
-//		var_dump($start);
-//		var_dump($length);
-//		var_dump($draw);
-//		var_dump($result);
-//		var_dump(count($result));
 		$newarr = new stdClass();
 		$newarr->page = (int)(count($result)/10)<10?1:(int)(count($result)/$length);
 		$newarr->recordsTotal =count($result);
@@ -138,12 +139,12 @@ class 	UserController extends BaseController
 		{
 			$newarr->data[$h] = $result[$i];
 		}
-//		var_dump($newarr);
 
 		return $response->withJson($newarr);
 	}
 	
-	public function UserUpdate(Request $request,Response $response, $args) {
+	public function UserUpdate(Request $request,Response $response, $args) 
+	{
 		$email = $request -> getParam('email');
 		$state = $request -> getParam('state');
 		$user = new UserModel();
@@ -156,7 +157,8 @@ class 	UserController extends BaseController
 		return $response -> withJson($data);
 	}
 
-	public function UserSelfSearch(Request $request,Response $response, $args) {
+	public function UserSelfSearch(Request $request,Response $response, $args)
+	 {
 		$email = $_SESSION['UserName'];
 		$user = new UserModel();
 		$result = $user->selfSelect($email);

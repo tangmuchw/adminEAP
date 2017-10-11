@@ -11,8 +11,11 @@ class RoleMiddleware extends BaseMiddleware
 	public function __invoke(Request $request,Response $response,$next)
 	{
 		$urlpath = $request -> getUri() -> getPath();
+		
 		$user = new UserModel();
 		$ret = $user -> getUserRoleToPower($_SESSION['UserName'],$urlpath);
+//		var_dump($ret);
+
 		if($ret == 0){
 			//没有权限访问该资源
 			return $response -> withRedirect($this -> container ->router-> pathFor('Error'));

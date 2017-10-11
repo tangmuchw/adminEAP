@@ -13,27 +13,16 @@ $app->get('/login','App\Controllers\UserController:login') -> setname('Login');
 $app->post('/login','App\Controllers\UserController:postLogin');	
 $app->get('/loginout','App\Controllers\UserController:logout');	
 $app -> get('/404', 'App\Controllers\BaseController:Error') -> setname('Error');
-
+$app-> get('/base/myselfInfo', 'App\Controllers\BaseController:myselfInfo');
 
 
 $app->group('',function(){
-//	$this -> post('/user/add', 'App\Controllers\UserController:UserAdd');
-//	$this -> post('/user/update', 'App\Controllers\UserController:UserUpdate');
-//	$this -> post('/user/delete', 'App\Controllers\UserController:UserDelete');
-//	$this -> get('/user/select', 'App\Controllers\UserController:UserSelect');
-//	$this -> get('/user/info', 'App\Controllers\UserController:UserInfo');
-//	$this -> get('/user/item', 'App\Controllers\UserController:UserItem');
-//	$this -> get('/user/list', 'App\Controllers\UserController:UserList');
-	
-	// $this -> post('/role/add', 'App\Controllers\RoleController:RoleAdd');
-	// $this -> post('/role/delete', 'App\Controllers\RoleController:RoleDelete');
-	// $this -> post('/role/update', 'App\Controllers\RoleController:RoleUpdate');
-//	$this -> get('/role/list', 'App\Controllers\RoleController:RoleList');
+
 /*
  * 普通用户用户登录
  */
- $this-> get('/normal/index', 'App\Controllers\NormalController:PersonIndex');
- $this-> get('/normal/self', 'App\Controllers\NormalController:Personself');
+ $this-> get('/normal/index', 'App\Controllers\NormalController:NormalIndex');
+ $this-> get('/normal/self', 'App\Controllers\NormalController:NormalSelf');
  
  /*
   * 管理员用户用户登录
@@ -72,5 +61,6 @@ $app->group('',function(){
  $this-> post('/role/usertorole/add','App\Controllers\RoleController:RoleRoleOfUserAdd');
  
  
-})-> add(new App\Middlewares\RoleMiddleware($container)) -> add(new App\Middlewares\AuthMiddleware($container));
+});
+//-> add(new App\Middlewares\RoleMiddleware($container)) -> add(new App\Middlewares\AuthMiddleware($container));
 ?>

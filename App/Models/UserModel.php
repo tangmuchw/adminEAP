@@ -17,7 +17,7 @@ class UserModel extends BaseModel
 		
 	}
 	
-	//	得到用户所有信息
+	//	得到用户所有信息，不包括密码，头像
 	public function getUserFullInfo(){
 		$sql = sprintf("select ID,UserName,Email,Phone,Sex,Address,Age,State from `%s`", $this -> _table);
 		$sth = $this -> _dbHandle -> prepare($sql);
@@ -27,19 +27,19 @@ class UserModel extends BaseModel
 	}
 	
 	//得到用户所对应的访问权限并判断是否具有该权限
-	public function getUserRoleToPower($user,$urlpath){
-		$sql = "SELECT power.ControllerAction FROM `user` INNER JOIN usertorole
-		on user.ID = usertorole.UserId
-		INNER JOIN role
-		on  usertorole.RoleId = role.ID
-		INNER JOIN roletopower
-		on role.ID = roletopower.RoleId
-		INNER JOIN power
-		on roletopower.PowerId = Power.ID
-		left JOIN menu
-		on Power.ActionId = power.ID 
-		where Email='".$user."' and power.ControllerAction='".$urlpath."'";
+	public function getUserRoleToPower($email,$urlpath){
+//		echo 'email';
+//		var_dump($email);
+//		var_dump($urlpath);
 		
+		$sql = "SELECT power.ControllerAction FROM `user` 
+    	INNER JOIN usertorole
+		on user.ID = usertorole.UserId
+		INNER JOIN roletopower
+		on usertorole.RoleId = roletopower.RoleId
+		INNER JOIN power
+		on roletopower.PowerId = power.ID
+		where Email='".$email."' and power.ControllerAction='".$urlpath."'";
 		return $this->query($sql); 
 	}
 	

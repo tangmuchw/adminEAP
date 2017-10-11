@@ -4,20 +4,18 @@ namespace App\Controllers;
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
-use App\Models\UserModel;
-use stdClass;
 
 class NormalController extends BaseController
 {
 	
-	public function PersonIndex(Request $request,Response $response,$args)
+	public function NormalIndex(Request $request,Response $response,$args)
 	{
-		include APP_PATH.'/Views/person/index.html';
+		include APP_PATH.'/Views/normal/index.html';
 	}
 	
-	public function PersonSelf(Request $request,Response $response,$args)
+	public function NormalSelf(Request $request,Response $response,$args)
 	{
-		include APP_PATH.'/Views/person/self.html';
+		include APP_PATH.'/Views/normal/self.html';
 	}
 	
 }
