@@ -27,11 +27,7 @@ $(function() {
 	function toPronvince() {
 
 		var province = provinceSelect.value;
-		//				console.log(provinceSelect.selectedIndex);
 		citySelect.options.length = 1;
-		//				console.log(province);
-		//				console.log(provinceList[0].name);
-
 		//				获取provinceSelect所选的内容索引-1
 		var provinceIndex = provinceSelect.selectedIndex - 1;
 		switch(provinceIndex) {

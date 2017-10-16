@@ -78,8 +78,6 @@ class 	UserController extends BaseController
 		$col = $_GET["order"][0]["column"];
 		//此列的订购方向。升序或降序,排序方式
 		$dir = $_GET["order"][0]["dir"];
-		//全局搜索值。
-		$search = $_GET["search"];
 		$newarr = new stdClass();
 		$newarr->draw = $draw;
 		$newarr->page = (int)(count($result)/$length);
@@ -157,13 +155,7 @@ class 	UserController extends BaseController
 		return $response -> withJson($data);
 	}
 
-	public function UserSelfSearch(Request $request,Response $response, $args)
-	 {
-		$email = $_SESSION['UserName'];
-		$user = new UserModel();
-		$result = $user->selfSelect($email);
-		return $response -> withJson($result);
-	}
+	
 	
 	
 	

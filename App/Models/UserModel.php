@@ -82,15 +82,6 @@ class UserModel extends BaseModel
 		return $this->query($sql); 
 	}
 
-	// 查找个人信息
-	public function selfSelect($email){
-		$sql = "SELECT UserName,Face FROM ".$this->_table." 
-			where Email='".$email."'";
-		$sth = $this -> _dbHandle -> prepare($sql);
-		$sth -> execute();
-
-		return $sth -> fetch();
-	}
 	
 	
 }

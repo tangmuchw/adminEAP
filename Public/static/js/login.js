@@ -96,8 +96,6 @@ $(function() {
 						sessionStorage.setItem("pwd", pwd);
 						var home;
 						home = data.index;
-						console.log(home);
-//						console.log(data.index);
 						setTimeout(function() {
 							location.href = home;
 						}, 2000);
@@ -109,7 +107,6 @@ $(function() {
 				},
 				error: function(er) {
 					var response = $.parseJSON(er);
-					//								console.log(er.msg)
 					$("#response-erro").html(er.msg);
 					$(".spinner").css("display", "none");
 				}

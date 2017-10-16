@@ -32,6 +32,9 @@
 		<link rel="stylesheet" href="/static/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
 		<!-- Ionicons -->
 		<link rel="stylesheet" href="/static/bower_components/Ionicons/css/ionicons.min.css">
+		<!-- bootstrapValidator -->
+		<link rel="stylesheet" type="text/css" href="/static/bootstrapvalidator/vendor/bootstrap/css/bootstrap-theme.css" />
+		<link rel="stylesheet" type="text/css" href="/static/bootstrapvalidator/dist/css/bootstrapValidator.min.css" />
 
 		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -42,6 +45,8 @@
 
 		<!-- Google Font -->
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+		<!--cropper-->
+		<link rel="stylesheet" href="/static/css/cropper.css">
 		<style type="text/css">
 			.modal .input-group {
 				margin-bottom: 20px;
@@ -80,11 +85,90 @@
 				color: #333;
 				text-decoration: none;
 			}
-			.relative5{
-				position:relative;
-				top:5px;
-				
-				
+			
+			.relative5 {
+				position: relative;
+				top: 5px;
+			}
+			
+			.address {
+				padding-top: 10px;
+			}
+			
+			.address select {
+				/*margin-right: 10px;*/
+			}
+			
+			.image-box {
+				max-width: 200px;
+			}
+			
+			#upload_modal img {
+				max-width: 100%;
+			}
+			/* Override Cropper's styles */
+			
+			.cropper-view-box,
+			.cropper-face {
+				border-radius: 50%;
+			}
+			
+			.modal-body {
+				overflow: hidden;
+			}
+			
+			.image-box {
+				float: left;
+			}
+			
+			.result-box {
+				float: right;
+				width: 350px;
+				height: 200px;
+				padding-left: 100px;
+			}
+			
+			.result {
+				border: 1px solid black;
+			}
+			
+			.image-upload {
+				margin-bottom: 20px;
+			}
+			
+			#cropper-button {
+				float: left;
+				margin-right: 10px;
+			}
+			
+			.address-update {
+				display: none;
+			}
+			
+			.form-control {
+				width: 200px;
+			}
+			
+			.updateAddress-icon {
+				position: relative;
+				top: 8px;
+			}
+			
+			.updateAddress-icon:hover {
+				cursor: pointer;
+			}
+			
+			#myselfinfo-update_modal .modal-content {
+				width: 200px;
+				margin: 0px auto;
+			}
+			
+			.update-my-error {
+				color: red;
+			}
+			
+			.address {
+				padding-left: 0px!important;
 			}
 		</style>
 	</head>
@@ -318,9 +402,9 @@
 								<ul class="dropdown-menu">
 									<!-- User image -->
 									<li class="user-header">
-										<img src="" class="img-circle myFace" alt="User Image">
+										<img src="" class="img-circle myFace" alt="User Image ">
 										<p>
-											<span class="myName">汤木维</span>
+											<span class='myName'>汤木维</span>
 											<small>2012年11月注册</small>
 										</p>
 									</li>
@@ -396,7 +480,7 @@
 							</a>
 							<ul class="treeview-menu">
 								<li>
-									<a href="/user/item"><i class="fa fa-circle-o"></i>个人信息管理</a>
+									<a href="/normal/self"><i class="fa fa-circle-o"></i>个人信息管理</a>
 								</li>
 							</ul>
 						</li>
@@ -414,44 +498,7 @@
 								</li>
 							</ul>
 						</li>
-					
-						<li>
-							<a href="pages/widgets.html">
-								<i class="fa fa-th"></i> <span>资源管理</span>
-								<span class="pull-right-container">
-              		<small class="label pull-right bg-green">new</small>
-            		</span>
-							</a>
-						</li>
-						<li class="treeview">
-							<a href="#">
-								<i class="fa fa-laptop"></i>
-								<span>系统日志</span>
-								<span class="pull-right-container">
-              						<i class="fa fa-angle-left pull-right"></i>
-           			 			</span>
-							</a>
-							<ul class="treeview-menu">
-								<li>
-									<a href="pages/UI/general.html"><i class="fa fa-circle-o"></i> General</a>
-								</li>
-								<li>
-									<a href="pages/UI/icons.html"><i class="fa fa-circle-o"></i> Icons</a>
-								</li>
-								<li>
-									<a href="pages/UI/buttons.html"><i class="fa fa-circle-o"></i> Buttons</a>
-								</li>
-								<li>
-									<a href="pages/UI/sliders.html"><i class="fa fa-circle-o"></i> Sliders</a>
-								</li>
-								<li>
-									<a href="pages/UI/timeline.html"><i class="fa fa-circle-o"></i> Timeline</a>
-								</li>
-								<li>
-									<a href="pages/UI/modals.html"><i class="fa fa-circle-o"></i> Modals</a>
-								</li>
-							</ul>
-						</li>
+
 					</ul>
 				</section>
 				<!-- /.sidebar -->
@@ -466,7 +513,7 @@
       				</h1>
 					<ol class="breadcrumb">
 						<li>
-							<a href="/user/index"><i class="fa fa-dashboard"></i> 首页</a>
+							<a href="/normal/index"><i class="fa fa-dashboard"></i> 首页</a>
 						</li>
 						<li class="active">公共中心/li>
 					</ol>
@@ -486,12 +533,12 @@
 									<input id="avatarId" name="avatarId" type="hidden">
 									<div class="box-header">
 										<div class="col-xs-12 text-center">
+											<!--upload_face-->
 											<div class="avatar-container text-center">
-												<img src="/static/img/avatar.jpg" id="avatarImg" class="avatar-img">
+												<img src="/static/img/user2-160x160.jpg" id="avatarImg" class="avatar-img myFace preFace">
 											</div>
 											<div>
-												<input type="file"  id="file"  style="display: none" />
-												<button type="button" class="btn btn-sm btn-camera" data-btn-type="upload" onclick="document.getElementById('file').click();"><i class="fa fa-camera">&nbsp;上传/更改头像</i></button>
+												<button type="button" class="btn btn-sm btn-camera" data-btn-type="upload" data-toggle='modal' data-target='#upload_modal'><i class="fa fa-camera">&nbsp;上传/更改头像</i></button>
 											</div>
 										</div>
 									</div>
@@ -506,7 +553,7 @@
 											<div class="form-group has-feedback">
 												<label for="email" class="col-sm-3 control-label">Email</label>
 												<div class="col-sm-8">
-													<input class="form-control" id="email" name="email" placeholder="Email" data-bv-field="email" type="text"><i style="display: none;" class="form-control-feedback" data-bv-icon-for="email"></i>
+													<input class="form-control" id="email" name="email" placeholder="Email" data-bv-field="email" type="text" disabled="disabled"><i style="display: none;" class="form-control-feedback" data-bv-icon-for="email"></i>
 													<small style="display: none;" data-bv-validator="notEmpty" data-bv-validator-for="email" class="help-block">请输入邮件</small><small style="display: none;" data-bv-validator="emailAddress" data-bv-validator-for="email" class="help-block">非法的邮件格式</small></div>
 											</div>
 											<div class="form-group">
@@ -518,19 +565,18 @@
 										</div>
 										<div class="col-md-6">
 											<div class="form-group has-feedback">
-												<label for="loginName" class="col-sm-3 control-label">年龄</label>
+												<label for="loginName" class="col-sm-3 control-label ">年龄</label>
 												<div class="col-sm-8 relative5">
-													<select name="age" id="age">
-														<option value="18">18</option>
-														<option value="19">19</option>
-														<option value="20">20</option>
-														<option value="21">21</option>
-														<option value="22">22</option>
-														<option value="23">23</option>
-														<option value="24">24</option>
-														<option value="25">25</option>
-														<option value="26">26</option>
-														<option value="27">27</option>
+													<select name="age" id="age" class="form-control">
+														<script type="text/javascript">
+															for(var i = 16; i < 70; i++) {
+																var options = document.createElement('option');
+																options.value = i;
+																options.innerHTML = i;
+																document.getElementById('age').appendChild(options);
+
+															}
+														</script>
 													</select>
 												</div>
 
@@ -538,17 +584,55 @@
 											<div class="form-group">
 												<label class="col-sm-3 control-label">性别</label>
 												<div class="col-sm-8 relative5">
-													<div class="sex">
-														<input type="radio" name="sex" class="sex" value="男" checked="checked" />男
-														<input type="radio" name="sex" class="sex" value="男" />女
+													<div id="sex">
+														<input type="radio" name="sex" class="sex" value="男" />男
+														<input type="radio" name="sex" class="sex" value="女" />女
 													</div>
-
 												</div>
 											</div>
 											<div class="form-group">
 												<label for="address" class="col-sm-3 control-label">地址</label>
-												<div class="col-sm-8">
-													<input class="form-control" id="address" name="address" placeholder="地址" type="text">
+												<div class="col-sm-9">
+													<div class="real-address">
+														<div class="address col-sm-6">
+
+														</div>
+														<div class="updateAddress-icon col-sm-3">
+															<i class="fa fa-fw fa-pencil"></i>
+														</div>
+													</div>
+													<div class="address-update">
+														<!--省-->
+														<p>
+															<select name="province" id="provinceSelect" class="form-control">
+																<option value="请选择省">请选择省</option>
+															</select>
+
+														</p>
+
+														<!--市-->
+														<p>
+															<select name="" id="city" class="form-control">
+																<option value="请选择市">请选择市</option>
+															</select>
+														</p>
+
+														<!--区-->
+														<p>
+															<select name="area" id="area" class="form-control">
+																<option value="请选择区/县类别">请选择区/县类别</option>
+															</select>
+														</p>
+
+														<!--县-->
+														<p>
+															<select name="" id="county" class="form-control">
+																<option value="请选择县/区">请选择县/区</option>
+															</select>
+														</p>
+
+													</div>
+
 												</div>
 											</div>
 										</div>
@@ -557,10 +641,11 @@
 									<div class="box-footer text-right">
 										<!--以下两种方式提交验证,根据所需选择-->
 										<button type="button" class="btn btn-primary" data-btn-type="cancel">取消</button>
-										<button type="submit" class="btn btn-primary" data-btn-type="save">提交</button>
+										<button type="button" class="btn btn-primary" id="myselfinfo-update-btn">提交</button>
 									</div>
 									<!-- /.box-footer -->
-									<input value="" type="hidden"></form>
+									<input value="" type="hidden">
+								</form>
 							</div>
 						</div>
 					</div>
@@ -773,6 +858,62 @@
 		</div>
 		<!-- ./wrapper -->
 
+		<!--#upload_modal-->
+		<div id="upload_modal" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title">上传头像:</h4>
+					</div>
+					<div class="modal-body">
+						<div class="image-box">
+							<div class="image-upload">
+								<img id="image" src="/static/img/user2-160x160.jpg" alt="Picture">
+							</div>
+
+							<div class="upload-select">
+								<button type="submit" id="cropper-button">确认裁剪</button>
+								<input type="file" name="upload_file" id='upload_file' style="display: none;">
+								<input type="button" name="" onclick="document.getElementById('upload_file').click();" value="选择文件">
+							</div>
+						</div>
+
+						<div class="result-box">
+							<h5>裁剪结果展示：</h5>
+							<div id="result"></div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default close2" data-dismiss="modal">取消</button>
+						<button type="button" class="btn btn-primary" data-dismiss="modal" id="upload-sure">确定</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--/#upload_modal-->
+
+		<!--#myselfinfo-update_modal-->
+		<div id="myselfinfo-update_modal" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title">提示信息:</h4>
+					</div>
+					<div class="modal-body">
+						<div class="update-my-error">
+
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default close2" data-dismiss="modal">取消</button>
+						<button type="button" class="btn btn-primary" id="update-my-sure">确定</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--/#upload_modal-->
+
 		<!-- jQuery 3 -->
 		<script src="/static/bower_components/jquery/dist/jquery.min.js"></script>
 		<!-- jQuery UI 1.11.4 -->
@@ -782,7 +923,7 @@
 			//			$.widget.bridge('uibutton', $.ui.button);
 		</script>
 		<!-- Bootstrap 3.3.7 -->
-		<script src="/static/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+		<script src="/static/bower_components/bootstrap/dist/js/bootstrap.js"></script>
 		<script src="/static/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
 		<!-- datepicker -->
 		<script src="/static/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
@@ -796,11 +937,16 @@
 		<script src="/static/dist/js/adminlte.min.js"></script>
 		<!-- DataTables -->
 		<script src="/static/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
-		<script src="/static/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 		<!--<script type="text/javascript" src="/static/plugins/mock/mock.js"></script>-->
+		<!--bootstrapvalidator-->
+		<script type="text/javascript" src="/static/bootstrapvalidator/dist/js/bootstrapValidator.min.js"></script>
+		<script src="/static/bootstrapvalidator/dist/js/language/zh_CN.js"></script>
 		<!--userAction-->
-		<script type="text/javascript" src="/static/js/userAction.js"></script>
-
+		<script type="text/javascript" src="/static/js/baseAction.js"></script>
+		<script type="text/javascript" src="/static/js/jsonArea.js"></script>
+		<script type="text/javascript" src="/static/js/address.js"></script>
+		<script type="text/javascript" src="/static/js/cropper.js"></script>
+		<script type="text/javascript" src="/static/js/getMyselfInfo.js"></script>
 	</body>
 
 </html>

@@ -32,6 +32,9 @@
 		<link rel="stylesheet" href="/static/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
 		<!-- Ionicons -->
 		<link rel="stylesheet" href="/static/bower_components/Ionicons/css/ionicons.min.css">
+		<!-- bootstrapValidator -->
+		<link rel="stylesheet" type="text/css" href="/static/bootstrapvalidator/vendor/bootstrap/css/bootstrap-theme.css" />
+		<link rel="stylesheet" type="text/css" href="/static/bootstrapvalidator/dist/css/bootstrapValidator.min.css" />
 
 		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -44,7 +47,6 @@
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 		<!--cropper-->
 		<link rel="stylesheet" href="/static/css/cropper.css">
-
 		<style type="text/css">
 			.modal .input-group {
 				margin-bottom: 20px;
@@ -137,6 +139,36 @@
 			#cropper-button {
 				float: left;
 				margin-right: 10px;
+			}
+			
+			.address-update {
+				display: none;
+			}
+			
+			.form-control {
+				width: 200px;
+			}
+			
+			.updateAddress-icon {
+				position: relative;
+				top: 8px;
+			}
+			
+			.updateAddress-icon:hover {
+				cursor: pointer;
+			}
+			
+			#myselfinfo-update_modal .modal-content {
+				width: 200px;
+				margin: 0px auto;
+			}
+			
+			.update-my-error {
+				color: red;
+			}
+			
+			.address {
+				padding-left: 0px!important;
 			}
 		</style>
 	</head>
@@ -370,9 +402,9 @@
 								<ul class="dropdown-menu">
 									<!-- User image -->
 									<li class="user-header">
-										<img src="" class="img-circle myFace" alt="User Image">
+										<img src="" class="img-circle myFace" alt="User Image ">
 										<p>
-											<span class="myName">汤木维</span>
+											<span class='myName'>汤木维</span>
 											<small>2012年11月注册</small>
 										</p>
 									</li>
@@ -467,7 +499,7 @@
       				</h1>
 					<ol class="breadcrumb">
 						<li>
-							<a href="/person/index"><i class="fa fa-dashboard"></i> 首页</a>
+							<a href="/normal/index"><i class="fa fa-dashboard"></i> 首页</a>
 						</li>
 						<li class="active">公共中心/li>
 					</ol>
@@ -507,7 +539,7 @@
 											<div class="form-group has-feedback">
 												<label for="email" class="col-sm-3 control-label">Email</label>
 												<div class="col-sm-8">
-													<input class="form-control" id="email" name="email" placeholder="Email" data-bv-field="email" type="text"><i style="display: none;" class="form-control-feedback" data-bv-icon-for="email"></i>
+													<input class="form-control" id="email" name="email" placeholder="Email" data-bv-field="email" type="text" disabled="disabled"><i style="display: none;" class="form-control-feedback" data-bv-icon-for="email"></i>
 													<small style="display: none;" data-bv-validator="notEmpty" data-bv-validator-for="email" class="help-block">请输入邮件</small><small style="display: none;" data-bv-validator="emailAddress" data-bv-validator-for="email" class="help-block">非法的邮件格式</small></div>
 											</div>
 											<div class="form-group">
@@ -519,9 +551,9 @@
 										</div>
 										<div class="col-md-6">
 											<div class="form-group has-feedback">
-												<label for="loginName" class="col-sm-3 control-label">年龄</label>
+												<label for="loginName" class="col-sm-3 control-label ">年龄</label>
 												<div class="col-sm-8 relative5">
-													<select name="age" id="age">
+													<select name="age" id="age" class="form-control">
 														<script type="text/javascript">
 															for(var i = 16; i < 70; i++) {
 																var options = document.createElement('option');
@@ -539,7 +571,7 @@
 												<label class="col-sm-3 control-label">性别</label>
 												<div class="col-sm-8 relative5">
 													<div id="sex">
-														<input type="radio" name="sex" class="sex" value="男"/>男
+														<input type="radio" name="sex" class="sex" value="男" />男
 														<input type="radio" name="sex" class="sex" value="女" />女
 													</div>
 												</div>
@@ -547,33 +579,41 @@
 											<div class="form-group">
 												<label for="address" class="col-sm-3 control-label">地址</label>
 												<div class="col-sm-9">
-													<div class="address">
+													<div class="real-address">
+														<div class="address col-sm-6">
+
+														</div>
+														<div class="updateAddress-icon col-sm-3">
+															<i class="fa fa-fw fa-pencil"></i>
+														</div>
+													</div>
+													<div class="address-update">
 														<!--省-->
 														<p>
-															<select name="province" id="provinceSelect">
-																<option value="请选择市">请选择省</option>
+															<select name="province" id="provinceSelect" class="form-control">
+																<option value="请选择省">请选择省</option>
 															</select>
 
 														</p>
 
 														<!--市-->
 														<p>
-															<select name="" id="city">
+															<select name="" id="city" class="form-control">
 																<option value="请选择市">请选择市</option>
 															</select>
 														</p>
 
 														<!--区-->
 														<p>
-															<select name="area" id="area">
+															<select name="area" id="area" class="form-control">
 																<option value="请选择区/县类别">请选择区/县类别</option>
 															</select>
 														</p>
 
 														<!--县-->
 														<p>
-															<select name="" id="county">
-																<option value="请选择县/县">请选择县/区</option>
+															<select name="" id="county" class="form-control">
+																<option value="请选择县/区">请选择县/区</option>
 															</select>
 														</p>
 
@@ -587,10 +627,11 @@
 									<div class="box-footer text-right">
 										<!--以下两种方式提交验证,根据所需选择-->
 										<button type="button" class="btn btn-primary" data-btn-type="cancel">取消</button>
-										<button type="submit" class="btn btn-primary" data-btn-type="save">提交</button>
+										<button type="button" class="btn btn-primary" id="myselfinfo-update-btn">提交</button>
 									</div>
 									<!-- /.box-footer -->
-									<input value="" type="hidden"></form>
+									<input value="" type="hidden">
+								</form>
 							</div>
 						</div>
 					</div>
@@ -831,7 +872,28 @@
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default close2" data-dismiss="modal">取消</button>
-						<button type="button" class="btn btn-primary" id="upload-sure">确定</button>
+						<button type="button" class="btn btn-primary" data-dismiss="modal" id="upload-sure">确定</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--/#upload_modal-->
+
+		<!--#myselfinfo-update_modal-->
+		<div id="myselfinfo-update_modal" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title">提示信息:</h4>
+					</div>
+					<div class="modal-body">
+						<div class="update-my-error">
+
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default close2" data-dismiss="modal">取消</button>
+						<button type="button" class="btn btn-primary"  id="update-my-sure">确定</button>
 					</div>
 				</div>
 			</div>
@@ -847,7 +909,7 @@
 			//			$.widget.bridge('uibutton', $.ui.button);
 		</script>
 		<!-- Bootstrap 3.3.7 -->
-		<script src="/static/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+		<script src="/static/bower_components/bootstrap/dist/js/bootstrap.js"></script>
 		<script src="/static/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
 		<!-- datepicker -->
 		<script src="/static/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
@@ -861,14 +923,16 @@
 		<script src="/static/dist/js/adminlte.min.js"></script>
 		<!-- DataTables -->
 		<script src="/static/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
-		<script src="/static/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 		<!--<script type="text/javascript" src="/static/plugins/mock/mock.js"></script>-->
+		<!--bootstrapvalidator-->
+		<script type="text/javascript" src="/static/bootstrapvalidator/dist/js/bootstrapValidator.min.js"></script>
+		<script src="/static/bootstrapvalidator/dist/js/language/zh_CN.js"></script>
 		<!--userAction-->
-		<script type="text/javascript" src="/static/js/userAction.js"></script>
+		<script type="text/javascript" src="/static/js/baseAction.js"></script>
 		<script type="text/javascript" src="/static/js/jsonArea.js"></script>
 		<script type="text/javascript" src="/static/js/address.js"></script>
 		<script type="text/javascript" src="/static/js/cropper.js"></script>
-		<script type="text/javascript" src="/static/js/getMyself.js"></script>
+		<script type="text/javascript" src="/static/js/getMyselfInfo.js"></script>
 	</body>
 
 </html>

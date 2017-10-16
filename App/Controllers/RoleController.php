@@ -143,11 +143,6 @@ class RoleController extends UserController
 		$role = new RoleModel();
 		$result = $role ->selectUserToRole($roleID);
 		
-		// var_dump($result);
-		
-		/*for($i=0 ; $i<count($result); $i++){
-			$result[$i]['btn'] = "<button type='button' class='btn btn-default delete-btn' data-toggle='modal' >删除</button>"; 
-		}*/
 		$start = $_GET["start"];
 		//表可以在当前绘图中显示的记录数。
 		$length = $_GET["length"];
@@ -160,11 +155,10 @@ class RoleController extends UserController
 		// $search = $_GET["search"];
 		$newarr = new stdClass();
 		$newarr->draw = $draw;
-		$newarr->page = (int)(count($result)/10)<10?1:(int)(count($result)/$length);
+		$newarr->page = (int)(count($result)%$length)<10?(int)(count($result)/$length)+1:(int)(count($result)/$length);
 		$newarr->recordsTotal =count($result);
-		$newarr->recordsFiltered = count($result);
+		$newarr->recordsFiltered = (int)(count($result)/$length)*10;
 		$newarr->data = array();
-
 
 		if(count($result) == 0){
 			$length = 0;

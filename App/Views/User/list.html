@@ -99,9 +99,6 @@
 			.selected {
 				background-color: lightseagreen!important;
 			}
-			/*.skin-blue .sidebar-form{
-				margin-top: 20px;
-			}*/
 			
 			.addRedColor {
 				color: red;
@@ -434,60 +431,6 @@
 								</li>
 							</ul>
 						</li>
-						<li class="treeview">
-							<a href="#">
-								<i class="fa fa-files-o"></i>
-								<span>角色授权</span>
-								<span class="pull-right-container">
-              						<span class="label label-primary pull-right">2</span>
-								</span>
-							</a>
-							<ul class="treeview-menu">
-								<li>
-									<a href="pages/layout/top-nav.html"><i class="fa fa-circle-o"></i>角色信息管理</a>
-								</li>
-								<li>
-									<a href="pages/layout/boxed.html"><i class="fa fa-circle-o"></i>角色授权管理</a>
-								</li>
-							</ul>
-						</li>
-						<li>
-							<a href="pages/widgets.html">
-								<i class="fa fa-th"></i> <span>资源管理</span>
-								<span class="pull-right-container">
-              		<small class="label pull-right bg-green">new</small>
-            		</span>
-							</a>
-						</li>
-						<li class="treeview">
-							<a href="#">
-								<i class="fa fa-laptop"></i>
-								<span>系统日志</span>
-								<span class="pull-right-container">
-              						<i class="fa fa-angle-left pull-right"></i>
-           			 			</span>
-							</a>
-							<ul class="treeview-menu">
-								<li>
-									<a href="pages/UI/general.html"><i class="fa fa-circle-o"></i> General</a>
-								</li>
-								<li>
-									<a href="pages/UI/icons.html"><i class="fa fa-circle-o"></i> Icons</a>
-								</li>
-								<li>
-									<a href="pages/UI/buttons.html"><i class="fa fa-circle-o"></i> Buttons</a>
-								</li>
-								<li>
-									<a href="pages/UI/sliders.html"><i class="fa fa-circle-o"></i> Sliders</a>
-								</li>
-								<li>
-									<a href="pages/UI/timeline.html"><i class="fa fa-circle-o"></i> Timeline</a>
-								</li>
-								<li>
-									<a href="pages/UI/modals.html"><i class="fa fa-circle-o"></i> Modals</a>
-								</li>
-							</ul>
-						</li>
 					</ul>
 				</section>
 				<!-- /.sidebar -->
@@ -769,7 +712,7 @@
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
-						<button type="button" class="close close2" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<button type="button" class="close " data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 						<h4 class="modal-title">填写信息:</h4>
 					</div>
 					<div class="modal-body">
@@ -786,8 +729,7 @@
 							<span class="input-group-addon"><i class="fa fa-envelope"></i></span>
 							<input type="text" class="form-control" placeholder="邮箱" id="addNewEmail" name="addNewEmail" />
 						</div>
-						<div class="callout callout-info modalTips">
-							<h4>Tip!</h4>
+						<div class="myModalTips">
 							<p id="addTips-error">
 
 							</p>
@@ -795,7 +737,7 @@
 					</div>
 
 					<div class="modal-footer">
-						<button type="button" class="btn btn-default close2" data-dismiss="modal">取消</button>
+						<button type="button" class="btn btn-default " data-dismiss="modal">取消</button>
 						<button type="button" class="btn btn-primary">提交</button>
 					</div>
 				</div>
@@ -862,15 +804,14 @@
 
 						</div>
 
-						<div class="callout callout-info modalTips" style="clear: both;">
-							<h4>Tip!</h4>
+						<div class="myModalTips" style="clear: both;">
 							<p id="updateTips-error">
 
 							</p>
 						</div>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-default close2" data-dismiss="modal">取消</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
 						<button type="button" class="btn btn-primary" id="update-sure">提交</button>
 					</div>
 				</div>
@@ -882,14 +823,14 @@
 			<div class="modal-dialog modal-sm" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
-						<button type="button" class="close close2" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 						<h4 class="modal-title">确认提示:</h4>
 					</div>
 					<div class="modal-body">
 						<p id="delete-error">是否要删除该行数据?</p>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-default close2" data-dismiss="modal">取消</button>
+						<button type="button" class="btn btn-default " data-dismiss="modal">取消</button>
 						<button type="button" class="btn btn-primary" id="delete-sure">确定</button>
 					</div>
 				</div>
@@ -923,308 +864,9 @@
 		<script src="/static/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 		<!--<script type="text/javascript" src="/static/plugins/mock/mock.js"></script>-->
 		<!--userAction-->
-		<script type="text/javascript" src="/static/js/userAction.js"></script>
-
-		<script type="text/javascript">
-			$(document).ready(function() {
-
-				//				初始化datatables
-				//				var table = initTable('/user/info');
-
-				//				function initTable(webUrl) {
-				var searchParams = {};
-				var table = $('#example1').DataTable({
-					//						"processing": true,
-					"serverSide": true,
-					"scrollX": true,
-					"autoWidth": true,
-					"ajax": {
-						"url": '/user/info',
-						"type": "get",
-						"data": function(d) {
-							if(searchParams) {
-								$.extend(d, searchParams); //给d扩展参数
-							}
-						}
-					},
-					"ordering": false,
-					"searching": false,
-					//						"fnServerData": retrieveData,//分页回调函数
-					"columns": [{
-							"data": "ID"
-						},
-						{
-							"data": "UserName"
-						},
-						{
-							"data": "Email"
-						},
-						{
-							"data": "Phone"
-						},
-						{
-							"data": "Sex"
-						},
-						{
-							"data": "Age"
-						},
-						{
-							"data": "State"
-						},
-						{
-							"data": "Address"
-						}
-						/*,{
-							"data": 'btn'
-						}*/
-					],
-					"language": {
-						"sProcessing": "处理中...",
-						"lengthMenu": "每页 _MENU_ 条记录",
-						"zeroRecords": "没有找到记录",
-						"info": "第 _PAGE_ 页 ( 总共 _PAGES_ 页 )",
-						"infoEmpty": "无记录",
-						"infoFiltered": "(从 _MAX_ 条记录过滤)",
-						"sUrl": "",
-						"sEmptyTable": "表中数据为空",
-						"sLoadingRecords": "载入中...",
-						"sInfoThousands": ",",
-						"search": "按姓名搜索:",
-						"oPaginate": {
-							"sFirst": "首页",
-							"sPrevious": "上页",
-							"sNext": "下页",
-							"sLast": "末页"
-						},
-						"oAria": {
-							"sSortAscending": ": 以升序排列此列",
-							"sSortDescending": ": 以降序排列此列"
-						}
-
-					}
-				});
-				//					return table;
-				//				}
-
-				//添加按钮
-				var btns = $("<input type='text' class='form-control' placeholder='按姓名搜索...' id='search-value'><div class='btn-group'><button type='button' class='btn btn-default' style='margin-left:5px' id='selectUser-btn'>查询</button><button type='button' class='btn btn-default' id='reset-datatable'>重置</button></div><div class='btn-group'><button type='button' class='btn btn-default' data-toggle='modal' data-target='#addinfo' style='margin-left:5px'>新增</button><button type='button' class='btn btn-default'  data-toggle='modal' data-target='#update'>编辑</button><button type='button' class='btn btn-default' data-toggle='modal'  data-target='#delete'>删除</button></div>");
-
-				var a = $("#example1_wrapper .row").first().find(".col-sm-6").last();
-				a.append(btns);
-
-				//				新增用户信息
-
-				$(".close2").click(function() {
-					$(".modalTips").css("display", "none");
-
-				});
-				$("#addinfo-btn").click(function() {
-					var newUsername = $("#addNewUserName").val();
-					var newPwd = $("#addNewPassword").val();
-					var newEmail = $("#addNewEmail").val();
-					$.ajax({
-						type: "post",
-						url: "/user/add",
-						data: {
-							"newUserName": newUsername,
-							"newPwd": newPwd,
-							"newEmail": newEmail
-						},
-						success: function(data) {
-							if(data.code == 0) {
-								$(".modalTips").css("display", "block");
-								$("#addTips-error").html(data.msg);
-
-							} else {
-								$(".modalTips").css("display", "block");
-								$("#addTips-error").html(data.msg);
-							}
-							//							console.log("添加成功");
-						},
-						error: function(er) {
-							$(".modalTips").css("display", "block");
-							$("#addTips-error").html('服务器错误');
-						}
-
-					});
-				});
-
-				//				删除用户
-				var isSelect = false;
-				if(!isSelect) {
-					$("#delete-error").html('请选择一行数据');
-					$("#delete-sure").attr('disabled', 'disabled');
-					//					设置update
-					$(".update-info").css("display", "none");
-					$("#update-sure").attr('disabled', 'disabled');
-					$("#update .modalTips").css("display", "block");
-					$("#updateTips-error").html('请选择一行数据');
-
-				} else {
-					$("#delete-error").html('是否要删除该行数据');
-					$(".update-info").css("display", "block");
-					$("#update .modalTips").css("display", "none");
-
-				}
-
-				var deleteUserEmail; //得到要被删除的邮箱
-				$("#delete-sure").click(function() {
-					//					console.log(deleteUserEmail);
-
-					$.ajax({
-						type: "post",
-						url: "/user/delete",
-						data: {
-
-							"email": deleteUserEmail
-						},
-						success: function(data) {
-							if(data.code == 0) {
-								$(".modalTips").css("display", "block");
-								$("#deleteTips-error").html(data.msg);
-								setTimeout(function() {
-									location.reload();
-								}, 1000)
-
-							} else {
-								$(".modalTips").css("display", "block");
-								$("#deleteTips-error").html(data.msg);
-							}
-							//							console.log("添加成功");
-						},
-						error: function(er) {
-							$(".modalTips").css("display", "block");
-							$("#deleteTips-error").html('服务器错误');
-						}
-
-					});
-				});
-
-				console.log(table.data());
-				//查询用户
-				$("#selectUser-btn").on('click', function() {
-					//					console.log(1);
-					var searchValue = $("#search-value").val();
-					searchParams.searchValue = searchValue;
-					table.ajax.url('/user/select').load();
-				});
-
-				//编辑用户
-
-				var userInfoJson;
-
-				function updateUser() {
-					$("#update-username").val(userInfoJson.UserName);
-					$("#update-email").val(userInfoJson.Email);
-					$("#update-phone").val(userInfoJson.Phone);
-					$("#update-sex").val(userInfoJson.Sex);
-					$("#update-age").val(userInfoJson.Age);
-					$("#update-address").val(userInfoJson.Address);
-					$("#update-state").val(userInfoJson.State);
-					var email = userInfoJson.Email;
-					//					console.log(state);
-					$("#update-sure").click(function() {
-						var state = $("#update-state").val();
-						$.ajax({
-							type: "post",
-							url: "/user/update",
-							data: {
-								email: email,
-								state: state
-							},
-							success: function(data) {
-								if(data.code == 1) {
-									$(".modalTips").css("display", "block");
-									$("#updateTips-error").html(data.msg);
-									setTimeout(function() {
-										location.reload();
-									}, 1000)
-
-								} else {
-									$(".modalTips").css("display", "block");
-									$("#updateTips-error").html(data.msg);
-								}
-								//							console.log("添加成功");
-							}
-						});
-
-					});
-
-				}
-
-				//				重置按钮
-				$("#reset-datatable").click(function() {
-					table.ajax.url('/user/info').load();
-				})
-
-				//				表格的行点击事件
-				$('#example1 tbody').on('click', 'tr', function(event) {
-					if($(this).hasClass('selected')) {
-						$(this).removeClass('selected');
-						isSelect = false;
-					} else {
-						table.$('tr.selected').removeClass('selected');
-						$(this).addClass('selected');
-						isSelect = true;
-
-					}
-					//					console.log(isSelect);
-					//					console.log(table.row(this).data().ID);
-					var username = table.row(this).data().UserName;
-					deleteUserEmail = table.row(this).data().Email;
-					userInfoJson = table.row(this).data();
-					//					console.log(username);
-					//					dataJson =  JSON.parse(table.row(this).data());
-					//					console.log(dataJson);
-					//					console.log(userInfoJson);
-					//判断是否被选中
-					if(!isSelect) {
-						$("#delete-error").html('请选择一行数据!');
-						$("#delete-sure").attr('disabled', 'disabled');
-						//					设置update
-						$(".update-info").css("display", "none");
-						$("#update-sure").attr('disabled', 'disabled');
-
-						$("#update .modalTips").css("display", "block");
-						$("#updateTips-error").html('请选择一行数据');
-					} else {
-
-						$("#delete-error").html("是否要删除(姓名为：" + username + ")该行数据!");
-						$("#delete-sure").removeAttr('disabled');
-						$("#update-sure").removeAttr('disabled');
-						$(".update-info").css("display", "block");
-						$("#update .modalTips").css("display", "none");
-						updateUser();
-
-					}
-
-					//					console.log(table.row(this).data());
-					/*console.log(table.rows().data());
-					console.log(table.rows().nodes());
-					rows= table.rows().nodes().to$();*/
-
-				});
-
-				//				给无效状态添加红色标记
-				table.on('draw', function() {
-					column6 = table.column(6).data();
-					nodes = table.column(6).nodes().to$();
-					//					table.column(6).addclass
-					//					console.log(nodes[1]);
-					//					nodes.toJQuery().addClass('addRedColor');
-
-					for(var i = 0; i < column6.length; i++) {
-						if(column6[i] == '无效') {
-							nodes.eq(i).addClass('addRedColor');
-
-						}
-
-					}
-
-				});
-
-			});
-		</script>
+		<script type="text/javascript" src="/static/js/baseAction.js"></script>
+		<!--userList-->
+		<script type="text/javascript" src="/static/js/userList.js"></script>
 	</body>
 
 </html>
